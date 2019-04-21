@@ -9,3 +9,12 @@ Home for general scripts, tools, and useful docs.
 * good example for:
   * html parsing
   * downloading via http
+
+### mountKnuth.sh
+* mounts Knuth onto ~/sshfs using sshfs
+
+### parseCourses.py
+* parses json file from hyperschedule.io and prints out courses
+
+### cp2
+* contains app and accompanying script to cp dropped file to hard coded location 
