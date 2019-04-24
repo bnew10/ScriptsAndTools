@@ -18,3 +18,6 @@ Home for general scripts, tools, and useful docs.
 
 ### cp2
 * contains app and accompanying script to cp dropped file to hard coded location 
+
+### Inconsolata
+* contains files for Inconsolata font
