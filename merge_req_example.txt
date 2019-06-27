@@ -1,0 +1,26 @@
+Context:
+
+an advocate creates an account in hub A
+the same advocate tries to create an account in hub B with a different
+password (the advocate is not authenticated in hub A, so the application
+can't confirm the identity)
+
+System behavior:
+
+Hub prevents the user to create the account in hub B because the
+password does not match
+
+Bug:
+
+We are returning the message to the user, however we are creating a
+contact without a persisted user.
+
+Impact:
+
+A non-joined contact is created and visible in the Invite List
+improperly
+
+Solution:
+
+Check if the user is not persisted and the email is already taken. If
+this happens, we should return early, before the contact creation.
