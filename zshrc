@@ -132,9 +132,13 @@ POWERLEVEL9K_HOME_SUB_ICON=''
 POWERLEVEL9K_FOLDER_ICON=''
 POWERLEVEL9K_ETC_ICON=''
 
+#POWERLEVEL9K_VCS_GIT_GITLAB_ICON=true
 POWERLEVEL9K_STATUS_OK=false
 
+POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON=$'\ue703  '
 POWERLEVEL9K_VCS_GIT_GITHUB_ICON=$'\uf408  '
+POWERLEVEL9K_VCS_GIT_GITLAB_ICON=$'\uf296  '
+POWERLEVEL9K_VCS_GIT_ICON=$'\uf1d3  '
 POWERLEVEL9K_VCS_BRANCH_ICON=$''
 
 POWERLEVEL9K_DIR_HOME_BACKGROUND='251'
@@ -152,3 +156,11 @@ POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='251'
 
 # zprof
 
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# fzf stuff
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

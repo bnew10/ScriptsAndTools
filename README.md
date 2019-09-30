@@ -22,5 +22,9 @@ Home for general scripts, tools, and useful docs.
 ### Inconsolata
 * contains files for Inconsolata font
 
-### MacPaste
-* global middle-mouse-click copy/paste for Mac OSX (like in Unix/Linux X11)
+### iterm_profile.json 
+* iterm profile config file
+
+### Dot files
+* .vimrc
+* .zshrc
