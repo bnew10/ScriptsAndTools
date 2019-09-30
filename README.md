@@ -27,4 +27,16 @@ Home for general scripts, tools, and useful docs.
 
 ### Dotfiles
 * .vimrc
+  * Need to install:
+    * Vundle
+      * https://github.com/VundleVim/Vundle.vim
+    * Monokai colorscheme
+      * https://github.com/crusoexia/vim-monokai
 * .zshrc
+  * Need to install:
+    * oh-my-zsh
+      * https://github.com/robbyrussell/oh-my-zsh
+    * powerlevel10k
+      * https://github.com/romkatv/powerlevel10k
+    * fzf
+      * https://github.com/junegunn/fzf
