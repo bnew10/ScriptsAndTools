@@ -22,6 +22,7 @@ Plugin 'mxw/vim-jsx'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'jremmen/vim-ripgrep'
 Plugin 'tpope/vim-commentary'
+Plugin 'crusoexia/vim-monokai'
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
