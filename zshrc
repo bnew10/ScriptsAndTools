@@ -168,8 +168,8 @@ export PATH="$PATH:/Users/Brad/.local/bin"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
+# Add user binaries to path
+export PATH="$PATH:$HOME/bin"
+
 # set terminal colors
 export TERM="xterm-256color"
-
-# ix.io
-source ~/.ix
