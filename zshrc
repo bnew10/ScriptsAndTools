@@ -170,3 +170,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 # set terminal colors
 export TERM="xterm-256color"
+
+# ix.io
+source ~/.ix
