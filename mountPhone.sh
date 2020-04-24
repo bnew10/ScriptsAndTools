@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sshfs phone:~ ~/sshfs
+sshfs phone: ~/mnt/phone
