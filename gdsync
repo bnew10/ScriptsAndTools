@@ -14,4 +14,4 @@ fi
 
 export GOGC=10
 
-sudo rclone sync --update --fast-list --verbose --transfers 2 --checkers 2 --tpslimit 10 --max-backlog 200000 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 10s "gdrive:$1" "$2" 
+sudo rclone sync --update --fast-list --verbose --transfers 2 --checkers 2 --max-backlog 200000 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 10s "$1" "$2" 
