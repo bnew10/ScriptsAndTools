@@ -1,0 +1,25 @@
+#!/usr/bin/python3
+
+import os
+import json
+
+# run ngrok with ssh tunnel
+os.system("nohup ngrok start ssh")
+
+# use ngrok api to get ngrok dashboard data
+stream = os.popen("curl -s http://localhost:4040/api/tunnels")
+output = stream.read()
+ngrokData = json.load(output)
+
+# pull out list of tunnels
+tunnels = ngrokData["tunnels"]
+
+# loop through tunnels until it finds ssh
+port = None
+for tunnel in tunnels:
+    if tunnel["name"] == "ssh":
+        public_url = tunnel["public_url"]
+        port = public_url.split(":")[-1]
+
+os.system("echo {} > current_port && ix current_port".format(port))
+
