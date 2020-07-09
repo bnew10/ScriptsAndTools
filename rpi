@@ -2,14 +2,16 @@
 
 import os
 import json
+import time
 
 # run ngrok with ssh tunnel
-os.system("nohup ngrok start ssh")
+os.system("nohup ngrok start ssh > /dev/null &")
+time.sleep(1)
 
 # use ngrok api to get ngrok dashboard data
 stream = os.popen("curl -s http://localhost:4040/api/tunnels")
 output = stream.read()
-ngrokData = json.load(output)
+ngrokData = json.loads(output)
 
 # pull out list of tunnels
 tunnels = ngrokData["tunnels"]
@@ -21,5 +23,8 @@ for tunnel in tunnels:
         public_url = tunnel["public_url"]
         port = public_url.split(":")[-1]
 
-os.system("echo {} > current_port && ix current_port".format(port))
+print("port: {}".format(port))
+
+# post txt file on ix.io w/ port number
+os.system("echo {} > current_port && ix current_port && rm current_port".format(port))
 
