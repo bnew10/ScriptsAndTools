@@ -1,32 +1,44 @@
 #!/bin/bash
 
-if [ -z "$1" ]
-then
+if [ -z "$1" ]; then
   echo "need megalink and google drive destination"
   exit 1
 fi
 
-if [[ -n "$1" && -z "$2" ]]
-then
+if [[ -n "$1" && -z "$2" ]]; then
   echo "need google drive destination"
   exit 1
 fi
 
-readarray -d / url <<< "$1"
+key="pKJsbv" # Simplepush key
+
+# $1: Simplepush message
+push_notification() {
+  curl "https://api.simplepush.io/send/${key}/megadr/${1}"
+}
+
+# read in megalink and isolate last bit for uid
+readarray -d / url <<<"$1"
 uid=$(echo ${url[-1]} | tr -d '\n')
 
 path="${HOME}/downloads/tmp_megadr_${uid}/"
 mkdir -p "$path"
-megadl --path "$path" "$1" && \
-  rclone copy -P --stats-one-line --error-on-no-transfer "$path" "$2"
-exit_status=$?
-  
-key="pKJsbv"
+
+if ! megadl --path "$path" "$1"; then
+  push_notification "failed download"
+  exit 1
+fi
+
 filename=$(ls ${path} | tr -d '\n')
-if [ ${exit_status} -eq 0 ]; then
-  msg="finished download and transfer of ${filename}"
-  curl "https://api.simplepush.io/send/${key}/megadr/${msg}" && rm -r "$path"
+filename_len=$(wc -c <<<${filename})
+if [ ! "$filename_len" -gt 1 ]; then
+  push_notification "failed download"
+  exit 1
+fi
+
+if ! rclone copy -P --stats-one-line --error-on-no-transfer "$path" "$2"; then
+  push_notification "failed transfer of ${filename}"
+  exit 1
 else
-  msg="failed download and/or transfer of ${filename}"
-  curl "https://api.simplepush.io/send/${key}/megadr/${msg}" 
+  push_notification "finished download and transfer of ${filename}" && rm -r "$path"
 fi
