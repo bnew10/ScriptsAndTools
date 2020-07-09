@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [ -z "$1" ]
+then
+  echo "need megalink and google drive destination"
+  exit 1
+fi
+
+if [[ -n "$1" && -z "$2" ]]
+then
+  echo "need google drive destination"
+  exit 1
+fi
+
+readarray -d / url <<< "$1"
+uid=$(echo ${url[-1]} | tr -d '\n')
+
+path="${HOME}/downloads/tmp_megadr_${uid}/"
+mkdir -p "$path"
+megadl --path "$path" "$1" && \
+  rclone copy -P --stats-one-line --error-on-no-transfer "$path" "$2"
+exit_status=$?
+  
+key="pKJsbv"
+filename=$(ls ${path} | tr -d '\n')
+if [ ${exit_status} -eq 0 ]; then
+  msg="finished download and transfer of ${filename}"
+  curl "https://api.simplepush.io/send/${key}/megadr/${msg}" && rm -r "$path"
+else
+  msg="failed download and/or transfer of ${filename}"
+  curl "https://api.simplepush.io/send/${key}/megadr/${msg}" 
+fi
