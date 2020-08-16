@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rclone mount gdrive: ~/mnt/gdrive
+rclone mount --vfs-cache-mode writes gdrive: ~/mnt/gdrive
