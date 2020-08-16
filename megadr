@@ -17,28 +17,53 @@ push_notification() {
   curl "https://api.simplepush.io/send/${key}/megadr/${1}"
 }
 
+path="${HOME}/downloads/megadr_downloads"
+
+filename=""
+if [ -d "$path" ]; then
+  # list in-progress downloads
+  ls_out=("$(ls -1 ${path})")
+  ls_out+=("new")
+  # choose in-progress download or new download
+  PS3="Choose an in-progress download or start a new download: "
+  select dir in "${ls_out[@]}"; do
+    case "$dir" in
+    "new")
+      read -p "Name of download: " filename
+      break
+      ;;
+    *)
+      filename=$(ls -1 "${path}/${dir}" | tr -d '\n')
+      break
+      ;;
+    esac
+  done
+else
+  read -p "Name of download: " filename
+fi
+
 # read in megalink and isolate last bit for uid
 readarray -d / url <<<"$1"
-uid=$(echo ${url[-1]} | tr -d '\n')
+uid=$(tr -d '\n' <<<${url[-1]})
 
-path="${HOME}/downloads/tmp_megadr_${uid}/"
-mkdir -p "$path"
+uid_path="${path}/${filename}_${uid}"
+file_path="${uid_path}/${filename}"
+mkdir -p "$file_path"
 
-if ! megadl --path "$path" "$1"; then
-  push_notification "failed download"
+if ! megadl --path "$file_path" "$1"; then
+  push_notification "download failed -- ${filename}"
   exit 1
 fi
 
-filename=$(ls ${path} | tr -d '\n')
-filename_len=$(wc -c <<<${filename})
-if [ ! "$filename_len" -gt 1 ]; then
-  push_notification "failed download"
+num_files=$(ls -1 "$file_path" | wc -l)
+if [ $((num_files)) -eq 0 ]; then
+  push_notification "download failed -- ${filename}"
   exit 1
 fi
 
-if ! rclone copy -P --stats-one-line --error-on-no-transfer "$path" "$2"; then
-  push_notification "failed transfer of ${filename}"
+if ! rclone copy -P --stats-one-line --error-on-no-transfer "$uid_path" "$2"; then
+  push_notification "transfer failed -- ${filename}"
   exit 1
 else
-  push_notification "finished download and transfer of ${filename}" && rm -r "$path"
+  push_notification "finished download and transfer -- ${filename}" && rm -r "$uid_path"
 fi

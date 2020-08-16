@@ -1,13 +1,11 @@
 #!/bin/bash
 
-if [ -z "$1" ]
-then
+if [ -z "$1" ]; then
   echo "need source and destination paths"
   exit 1
 fi
 
-if [[ -n "$1" && -z "$2" ]]
-then
+if [[ -n "$1" && -z "$2" ]]; then
   echo "need destination path"
   exit 1
 fi
