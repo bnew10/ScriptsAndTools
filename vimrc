@@ -23,6 +23,7 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'jremmen/vim-ripgrep'
 Plugin 'tpope/vim-commentary'
 Plugin 'crusoexia/vim-monokai'
+Plugin 'troydm/zoomwintab.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
@@ -125,6 +126,9 @@ let g:monokai_gui_italic = 1
 " ===== vim-airline =====
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+
+let g:airline#extensions#zoomwintab#enabled = 1
+nmap <Leader>z <C-w>o
 
 
 " ===== ctrlp =====
