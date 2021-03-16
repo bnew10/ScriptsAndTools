@@ -25,6 +25,8 @@ Plugin 'tpope/vim-commentary'
 Plugin 'crusoexia/vim-monokai'
 Plugin 'troydm/zoomwintab.vim'
 Plugin 'machakann/vim-sandwich'
+Plugin 'farmergreg/vim-lastplace'
+Plugin 'liuchengxu/vista.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
