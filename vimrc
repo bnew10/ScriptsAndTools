@@ -155,6 +155,9 @@ let g:rg_command = 'rg --column --line-number --no-heading --fixed-strings --sma
 
 "let g:rg_command = 'rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 
+" ===== git-blame =====
+nnoremap <Leader>gb :<C-u>call gitblame#echo()<CR>
+
 " ===== coc.nvim =====
 " Some servers have issues with backup files, see #649.
 set nobackup
@@ -216,6 +219,9 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
+
+" Shortcut for showing lint output
+nnoremap <leader>lo :CocCommand workspace.showOutput<cr>
 
 " ===== Vista =====
 nnoremap <silent> <leader>[ :Vista!!<cr>
