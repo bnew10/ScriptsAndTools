@@ -29,6 +29,7 @@ Plugin 'farmergreg/vim-lastplace'
 Plugin 'liuchengxu/vista.vim'
 Plugin 'neoclide/coc.nvim'
 Plugin 'kevinoid/vim-jsonc'
+Plugin 'zivyangll/git-blame.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
