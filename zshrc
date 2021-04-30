@@ -172,7 +172,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$HOME/bin"
 
 # set terminal colors
-export TERM="xterm-256color"
+# export TERM="xterm-256color"
 
 # Add poetry to PATH
 export PATH="$HOME/.poetry/bin:$PATH"
