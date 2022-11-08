@@ -103,7 +103,7 @@ source $ZSH/oh-my-zsh.sh
 source $HOME/.bash_aliases
 
 # Preferred editor
-export EDITOR='nv'
+export EDITOR='lvim'
 
 # PATH updates
 
