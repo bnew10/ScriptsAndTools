@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+
+GREEN='\033[1;32m'
+RED='\033[1;31m'
+NC='\033[0m' # No Color
+
+SERVICES=("plexmediaserver" "sabnzbd@bnew10" "radarr")
+
+if [ "$1" = "-v" ]; then
+    sudo systemctl status "${SERVICES[@]}"
+else
+    for service in ${SERVICES[@]}; do
+        state=$(sudo systemctl is-active "$service")
+        if [ "$state" = "active" ]; then
+            echo -e "$service: $GREEN$state$NC"
+        else
+            echo -e "$service: $RED$state$NC"
+        fi
+    done
+fi;
+
