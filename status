@@ -4,7 +4,7 @@ GREEN='\033[1;32m'
 RED='\033[1;31m'
 NC='\033[0m' # No Color
 
-SERVICES=("plexmediaserver" "sabnzbd@bnew10" "radarr" "sonarr")
+SERVICES=("plexmediaserver" "sabnzbd@bnew10" "radarr" "sonarr" "lidarr")
 
 if [ "$1" = "-v" ]; then
     sudo systemctl status "${SERVICES[@]}"
