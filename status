@@ -6,8 +6,12 @@ NC='\033[0m' # No Color
 
 SERVICES=("plexmediaserver" "sabnzbd@bnew10" "radarr" "sonarr" "lidarr")
 
+complete -W "$SERVICES" status
+
 if [ "$1" = "-v" ]; then
     sudo systemctl status "${SERVICES[@]}"
+elif [[ " ${SERVICES[*]} " =~ " ${1} " ]]; then
+    sudo systemctl status "$1"
 else
     for service in ${SERVICES[@]}; do
         state=$(sudo systemctl is-active "$service")
