@@ -1,0 +1,2 @@
+#!/bin/bash
+git fsck && git gc --prune=now
