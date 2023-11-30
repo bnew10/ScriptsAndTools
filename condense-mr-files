@@ -1,0 +1,21 @@
+#!/usr/local/bin/python3
+
+import sys
+
+inputFile = sys.argv[1]
+outFilename = sys.argv[2]
+
+filenames = {}
+with open(inputFile, "r") as f:
+    for line in f:
+        filenames[line] = filenames[line] + 1 if line in filenames else 1
+
+with open(outFilename, "w") as f:
+    for filename in filenames:
+        if (filename != "\n"): f.write(filename)
+
+for filename in filenames:
+    if (filename != "\n"): 
+        fname = filename.replace("\n", "")
+        print(f"{fname}: {filenames[filename]}")
+
