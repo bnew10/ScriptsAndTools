@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/bnew10/.oh-my-zsh"
+export ZSH="/Users/bnew10/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -72,6 +72,9 @@ ZSH_THEME="gentoo"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z)
 
+# FPATH updates; oh-my-zsh.sh calls compinit
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -106,6 +109,6 @@ source $HOME/.bash_aliases
 export EDITOR='vim'
 
 # PATH updates
-
 export PATH=$HOME/.local/bin:$PATH # user binaries
+export PATH=/opt/homebrew/bin:$PATH # homebrew binaries
 
