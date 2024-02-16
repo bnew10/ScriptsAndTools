@@ -103,11 +103,9 @@ source $ZSH/oh-my-zsh.sh
 source $HOME/.bash_aliases
 
 # Preferred editor
-export EDITOR='lvim'
+export EDITOR='vim'
 
 # PATH updates
 
 export PATH=$HOME/.local/bin:$PATH # user binaries
 
-export GEM_HOME="$(ruby -e 'puts Gem.user_dir')" # add ruby gems to path
-export PATH="$PATH:$GEM_HOME/bin"
