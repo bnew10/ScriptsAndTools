@@ -1,0 +1,28 @@
+[include]
+    path = ~/scripts-tools/themes.gitconfig
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = interactive arctic-fox decorations
+
+[delta "interactive"]
+    navigate = true
+    line-numbers = true
+    hyperlinks = true
+    #hyperlinks-file-link-format = "idea://open?file={path}&line={line}"
+
+[delta "decorations"]
+    syntax-theme=none
+    hunk-header-file-style = blue bold
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
