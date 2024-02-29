@@ -9,6 +9,7 @@
 
 [delta]
     features = interactive arctic-fox decorations
+    paging = always
 
 [delta "interactive"]
     navigate = true
