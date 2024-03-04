@@ -1,9 +1,11 @@
 # misc
 alias lal="ls -Alh"
 alias c="clear && cd"
-alias path="echo $PATH | sed 's/:/\n/g'"
 
 # homebrew
 alias bud="brew update && echo '\n' && brew outdated --greedy"
 alias bug="brew upgrade --greedy"
+
+# functions
+path () { echo "$PATH" | sed 's/:/\n/g'; }
 
