@@ -17,7 +17,9 @@
     #hyperlinks-file-link-format = "idea://open?file={path}&line={line}"
 
 [delta "decorations"]
-    syntax-theme=none
+    syntax-theme = none
+    file-decoration-style = yellow box
+    file-style = yellow bold
     hunk-header-file-style = blue bold
 
 [merge]
