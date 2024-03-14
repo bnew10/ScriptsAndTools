@@ -63,6 +63,10 @@ set scrolloff=3
 set backspace=2 " backspace acts like every other program
 set matchpairs+=<:> " use % to jump between pairs
 
+" Cursor shape
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
 " Move up/down editor lines
 nnoremap <silent> j gj
 nnoremap <silent> k gk
