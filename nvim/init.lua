@@ -27,8 +27,4 @@ local map = vim.keymap.set
 local defaults = { noremap = true, silent = true }
 
 map('n', '<esc><esc>', ':noh<cr>', defaults)
-map('n', '<C-h>', '<C-w>h', defaults)
-map('n', '<C-j>', '<C-w>j', defaults)
-map('n', '<C-k>', '<C-w>k', defaults)
-map('n', '<C-l>', '<C-w>l', defaults)
 
