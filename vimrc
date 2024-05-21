@@ -1,7 +1,8 @@
 " vim-plug autoinstall
-let data_dir = '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+let plug_file = '~/.vim/autoload/plug.vim'
+if empty(glob(plug_file))
+  silent execute '!mkdir -p '.fnamemodify(plug_file, ':p:h')
+  silent execute '!wget -O '.plug_file.' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
