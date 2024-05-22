@@ -20,6 +20,6 @@ alias ghce="gh copilot explain"
 # xplr
 alias xcd='cd "$(xplr --print-pwd-as-result)"'
 
-# env vars
-export JAVA_HOME="/lib/jvm/java-1.8.0-openjdk-1.8.0.382.b05-2.el8.x86_64"
-export ACCELERATE_INSTALL_DIRECTORY="/tmp/installer"
+# intellij
+alias ijopen='open -a IntelliJ\ IDEA'
+
