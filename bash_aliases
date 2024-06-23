@@ -23,3 +23,5 @@ alias xcd='cd "$(xplr --print-pwd-as-result)"'
 # intellij
 alias ijopen='open -a IntelliJ\ IDEA'
 
+# tmux
+alias tcs='open https://tmuxcheatsheet.com'
