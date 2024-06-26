@@ -2,7 +2,7 @@
     path = ~/scripts-tools/themes.gitconfig
 
 [core]
-    pager = delta
+    pager = delta --paging always
 
 [interactive]
     diffFilter = delta --color-only
