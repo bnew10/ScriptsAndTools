@@ -37,6 +37,7 @@ gs () {
 }
 alias gds="git -c color.status=always status -s \$(git diff --name-only) | fzf --ansi --multi --bind 'enter:execute(git diff {+2})'"
 alias gdss="git -c color.status=always status -s \$(git diff --name-only --cached) | fzf --ansi --multi --bind 'enter:execute(git diff --staged {+2})'"
+alias jars="git status -s | awk '{ print \$2 }' | tree --fromfile -L 2"
 
 # fzf
 alias fze="fzf --multi --bind 'enter:become(vim {+})'"
