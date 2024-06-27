@@ -5,6 +5,9 @@ alias lal="ls -Alh"
 alias c="clear && cd"
 alias path="echo $PATH | sed 's/:/\n/g'"
 
+# jar debug string (jds)
+alias jds="echo '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'"
+
 # homebrew
 alias bud="brew update && echo '\n' && brew outdated --greedy"
 alias bug="brew upgrade --greedy"
