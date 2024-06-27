@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+FZF_DEFAULTS=(--multi --cycle)
+
 # aliases
 alias lal="ls -Alh"
 alias c="clear && cd"
@@ -34,14 +36,14 @@ alias tcs='open https://tmuxcheatsheet.com'
 # git
 alias gst='git-st'
 gs () {
-  GST_OUT=$(git -c color.status=always status -s | fzf --ansi --multi | awk '{ print $2 }') \
+  GST_OUT=$(git -c color.status=always status -s | fzf ${FZF_DEFAULTS[@]} --ansi | awk '{ print $2 }') \
     && echo $GST_OUT \
     && echo $GST_OUT | tr '\n' ' ' | pbcopy
 }
-alias gds="git -c color.status=always status -s \$(git diff --name-only) | fzf --ansi --multi --bind 'enter:execute(git diff {+2})'"
-alias gdss="git -c color.status=always status -s \$(git diff --name-only --cached) | fzf --ansi --multi --bind 'enter:execute(git diff --staged {+2})'"
+alias gds="git -c color.status=always status -s \$(git diff --name-only) | fzf ${FZF_DEFAULTS[*]} --ansi --bind 'enter:execute(git diff {+2})'"
+alias gdss="git -c color.status=always status -s \$(git diff --name-only --cached) | fzf ${FZF_DEFAULTS[*]} --ansi --bind 'enter:execute(git diff --staged {+2})'"
 alias jars="git status -s | awk '{ print \$2 }' | tree --fromfile -L 2"
 
 # fzf
-alias fze="fzf --multi --bind 'enter:become(vim {+})'"
+alias fze="fzf ${FZF_DEFAULTS[*]} --bind 'enter:become(vim {+})'"
 
