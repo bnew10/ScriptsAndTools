@@ -25,7 +25,11 @@ while getopts ":h" opt; do
 done
 
 IFS=
-status="$(git -c color.status=always status -sb)"
+#status="$(git -c color.status=always status -sb)"
+#status="$(git status --porcelain | awk '/^[^[:space:]] / { print "\033[32m"$0"\033[m" } /^[[:space:]?!]/ { print "\033[31m"$0"\033[m" } /^[^[:space:]^?^!]{2}/ { print "\033[33m"$0"\033[m" }')"
+#status="$(git status --porcelain -b | awk '/^[^[:space:]] / { print "\033[32m"$0"\033[m" } /^[[:space:]?\!]/ { print "\033[31m"$0"\033[m" } /^[^[:space:]^?^\!^#]{2}/ { print "\033[33m"$0"\033[m" } /^##/ { gsub(/ [[:alnum:]]*/) }')"
+status="$(git status --porcelain -b | awk '/^[^[:space:]] / { print "\033[32m"$0"\033[m" } /^[[:space:]?\!]/ { print "\033[31m"$0"\033[m" } /^[^[:space:]^?^\!^#]{2}/ { print "\033[33m"$0"\033[m" } /^##/ { split($2, a, /\.{3}/); gsub(/[[:alnum:]\._]*\.{3}[[:alnum:]\/\._]*/, "\033[1m"a[1]"\033[m..."a[2]); print }')"
+#status="$(git status --porcelain -b | awk '/^[^[:space:]] / { print "\033[32m"$0"\033[m" } /^[[:space:]?\!]/ { print "\033[31m"$0"\033[m" } /^[^[:space:]^?^\!^#]{2}/ { print "\033[33m"$0"\033[m" } /^##/ { split($2, a, /\.{3}/); gsub(/[[:alnum:]\._]*\.{3}[[:alnum:]\/\._]*/, "\033[1m"a[1]"\033[m..."a[2]); gsub(/\[ahead [[:digit:]]\]$/, "[]") ; print }')"
 
 if [ $? -ne 0 ]; then
     exit 1
