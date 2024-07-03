@@ -46,7 +46,7 @@ gsh () {
 alias gst='git-st'
 alias gds="git -c color.status=always status -s \$(git diff --name-only) | fzf ${FZF_DEFAULTS[*]} --ansi --bind 'enter:execute(git diff {+2})'"
 alias gdss="git -c color.status=always status -s \$(git diff --name-only --cached) | fzf ${FZF_DEFAULTS[*]} --ansi --bind 'enter:execute(git diff --staged {+2})'"
-alias jars="git status -s | awk '{ print \$2 }' | tree --fromfile -L 2"
+alias jars="git status -s | awk -F '/' '{ print \$2 }' | uniq"
 
 # fzf
 alias fze="fzf ${FZF_DEFAULTS[*]} --bind 'enter:become(vim {+})'"
