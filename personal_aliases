@@ -38,3 +38,8 @@ alias jars="git status -s | awk -F '/' '{ print \$2 }' | uniq"
 # fzf
 alias fze="fzf ${FZF_DEFAULTS[*]} --bind 'enter:become(vim {+})'"
 
+# docker
+dsh () {
+  docker exec -it $1 /bin/bash
+}
+
