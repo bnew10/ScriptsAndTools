@@ -10,7 +10,7 @@ services:
       - TZ=America/Los_Angeles
       - VERSION=docker
     volumes:
-      - /mnt/Seagate/plex_config:/config
+      - /mnt/Seagate/plex-config:/config
       - /mnt/Seagate/data/media:/data/media
       - /dev/shm:/transcode
     devices:
