@@ -17,3 +17,18 @@ services:
       - /dev/dri:/dev/dri
     restart: unless-stopped
 
+  # localhost:8080
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /mnt/Seagate/sabnzbd-config:/config
+      - /mnt/Seagate/data/sabnzbd:/data/sabnzbd
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+
