@@ -32,3 +32,18 @@ services:
       - 8080:8080
     restart: unless-stopped
 
+  # localhost:7878
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /mnt/Seagate/radarr-config:/config
+      - /mnt/Seagate/data:/data
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
