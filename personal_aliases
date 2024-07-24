@@ -42,9 +42,9 @@ alias fze="fzf ${FZF_DEFAULTS[*]} --bind 'enter:become(vim {+})'"
 dsh () {
   docker exec -it $1 /bin/bash
 }
-
 export COMPOSE_DIR=(~/scripts-tools/compose.yml)
 dcupdate () {
   docker compose -f ${COMPOSE_DIR[@]} pull $1 && docker compose -f ${COMPOSE_DIR[@]} up -d $1
 }
+alias dc='docker compose'
 
