@@ -112,3 +112,7 @@ export EDITOR='vim'
 export PATH=$HOME/.local/bin:$PATH # user binaries
 export PATH=/opt/homebrew/bin:$PATH # homebrew binaries
 
+# Options
+setopt CORRECT
+setopt CORRECT_ALL
+
