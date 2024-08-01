@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# create data dir and subdirs
+mkdir -p ~/media_lib/data/media/movies
+mkdir -p ~/media_lib/data/media/tv
+mkdir -p ~/media_lib/data/sabnzbd
+
+# create config dirs
+mkdir -p ~/media_lib/sabnzbd-config
+mkdir -p ~/media_lib/radarr-config
+mkdir -p ~/media_lib/sonarr-config
+
+
