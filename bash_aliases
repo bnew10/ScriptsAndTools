@@ -5,7 +5,9 @@ FZF_DEFAULTS=(--multi --cycle)
 # aliases
 alias lal="ls -Alh"
 alias c="clear && cd"
-alias path="echo $PATH | sed 's/:/\n/g'"
+path () {
+  echo $PATH | sed 's/:/\n/g'
+}
 
 # jar debug string (jds)
 DEBUG_STR="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
