@@ -44,6 +44,16 @@ alias jars="git status -s | awk -F '/' '{ print \$2 }' | uniq"
 # raycast
 alias confetti="open -g raycast://confetti"
 
+# docker
+dsh () {
+  docker exec -it $1 /bin/bash
+}
+export COMPOSE_DIR=(~/scripts-tools/compose.yml)
+dcupdate () {
+  docker compose -f ${COMPOSE_DIR[@]} pull $1 && docker compose -f ${COMPOSE_DIR[@]} up -d $1
+}
+alias dc='docker compose'
+
 # ultx
 is-active () {
   ultx is-active | awk '{if ($0 ~ /active/) {print "\033[0;32m" $0 "\033[0m"} else if ($0 ~ /failed/) {print "\033[0;31m" $0 "\033[0m"} else {print $0}}'
