@@ -42,6 +42,9 @@ alias jars="git status -s | awk -F '/' '{ print \$2 }' | uniq"
 # fzf
 alias fze="fzf ${FZF_DEFAULTS[*]} --bind 'enter:become(vim {+})'"
 
+# raycast
+alias confetti="open -g raycast://confetti"
+
 # ultx
 is-active () {
   ultx is-active | awk '{if ($0 ~ /active/) {print "\033[0;32m" $0 "\033[0m"} else if ($0 ~ /failed/) {print "\033[0;31m" $0 "\033[0m"} else {print $0}}'
