@@ -1,6 +1,4 @@
-#!/usr/bin/env bash
-
-FZF_DEFAULTS=(--multi --cycle)
+#!/usr/bin/env zsh
 
 # aliases
 alias lal="ls -Alh"
@@ -24,6 +22,10 @@ alias ghce="gh copilot explain"
 # tmux
 alias tcs='open https://tmuxcheatsheet.com'
 
+# fzf
+FZF_DEFAULTS=(--multi --cycle)
+alias fze="fzf ${FZF_DEFAULTS[*]} --bind 'enter:become(vim {+})'"
+
 # git
 gs () {
   GST_OUT=$(git -c color.status=always status -s | fzf ${FZF_DEFAULTS[@]} --ansi | awk '{ print $2 }') \
@@ -38,9 +40,6 @@ alias gst='git-st'
 alias gds="git -c color.status=always status -s \$(git diff --name-only) | fzf ${FZF_DEFAULTS[*]} --ansi --bind 'enter:execute(git diff {+2})'"
 alias gdss="git -c color.status=always status -s \$(git diff --name-only --cached) | fzf ${FZF_DEFAULTS[*]} --ansi --bind 'enter:execute(git diff --staged {+2})'"
 alias jars="git status -s | awk -F '/' '{ print \$2 }' | uniq"
-
-# fzf
-alias fze="fzf ${FZF_DEFAULTS[*]} --bind 'enter:become(vim {+})'"
 
 # raycast
 alias confetti="open -g raycast://confetti"
