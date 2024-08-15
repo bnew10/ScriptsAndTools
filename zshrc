@@ -72,8 +72,10 @@ ZSH_THEME="gentoo"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z)
 
+# set important homebrew params like $HOMEBREW_PREFIX
+eval "$(/opt/homebrew/bin/brew shellenv)"
 # FPATH updates; oh-my-zsh.sh calls compinit
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:${FPATH}"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,14 +105,13 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source $HOME/.personal_aliases
+source $HOME/.aliases
 
 # Preferred editor
 export EDITOR='vim'
 
 # PATH updates
 export PATH=$HOME/.local/bin:$PATH # user binaries
-export PATH=/opt/homebrew/bin:$PATH # homebrew binaries
 
 # Options
 setopt CORRECT
