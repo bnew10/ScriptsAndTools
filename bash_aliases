@@ -17,21 +17,9 @@ alias jds="echo $DEBUG_STR && command -v pbcopy &> /dev/null && echo -n $DEBUG_S
 alias bud="brew update && echo '\n' && brew outdated --greedy"
 alias bug="brew upgrade --greedy"
 
-# vagrant
-alias vgs="ssh nuc vagrant global-status"
-alias vu="ssh nuc vagrant up"
-alias vh="ssh nuc vagrant halt"
-alias vr="ssh nuc vagrant reload"
-
 # github copilot cli
 alias ghcs="gh copilot suggest"
 alias ghce="gh copilot explain"
-
-# xplr
-alias xcd='cd "$(xplr --print-pwd-as-result)"'
-
-# intellij
-alias ijopen='open -a IntelliJ\ IDEA'
 
 # tmux
 alias tcs='open https://tmuxcheatsheet.com'
