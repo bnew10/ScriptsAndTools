@@ -5,13 +5,12 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title Open profile
+# @raycast.title Open default
 # @raycast.packageName iTerm
 # @raycast.mode silent
 
 # Optional parameters:
 # @raycast.icon 🤖
-# @raycast.argument1 { "type": "text", "placeholder": "Placeholder" }
 
 # Documentation:
 # @raycast.author sunrisewestern
@@ -21,7 +20,7 @@ on is_running(appName)
 	tell application "System Events" to (name of processes) contains appName
 end is_running
 
-on run {argv}
+on run
 	set iTermRunning to is_running("iTerm2")
 	tell application "iTerm"
 		activate
@@ -29,6 +28,6 @@ on run {argv}
 			delay 0.5
 			close the current window
 		end if
-		create window with profile argv
+		create window with profile "default"
 	end tell
 end run
