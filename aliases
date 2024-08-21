@@ -7,6 +7,18 @@ path () {
   echo $PATH | sed 's/:/\n/g'
 }
 
+# nnn
+alias n="nnn -e"
+alias nnn="nnn -e"
+unalias ls &> /dev/null
+ls() {
+  if [ $# -eq 0 ]; then
+    nnn -e
+  else
+    command ls -G "$@"
+  fi
+}
+
 # jar debug string (jds)
 DEBUG_STR="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
 alias jds="echo $DEBUG_STR && command -v pbcopy &> /dev/null && echo -n $DEBUG_STR | pbcopy"
