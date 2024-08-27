@@ -15,6 +15,7 @@
     line-numbers = true
     hyperlinks = true
     #hyperlinks-file-link-format = "idea://open?file={path}&line={line}"
+    #hyperlinks-file-link-format = "raycast://script-commands/open-vim-at?arguments={path}&arguments={line}"
 
 [delta "decorations"]
     syntax-theme = none
