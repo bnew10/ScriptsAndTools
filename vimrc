@@ -1,3 +1,6 @@
+set nocompatible
+let mapleader=" "
+
 " vim-plug autoinstall
 let plug_file = '~/.vim/autoload/plug.vim'
 if empty(glob(plug_file))
@@ -10,14 +13,19 @@ endif
 call plug#begin()
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
+Plug 'mcchrish/nnn.vim'
 call plug#end()
 
 " vim-sneak
 let g:sneak#label = 1
 
+" nnn.vim
+let g:nnn#set_default_mappings = 0
+let g:nnn#layout = { 'window': { 'width': 0.3, 'height': 0.5, 'xoffset': 0.9, 'highlight': 'Comment' } }
+let g:nnn#action = { '<c-x>': 'split', '<c-v>': 'vsplit' }
+" Start n³ in the current file's directory
+nnoremap <leader>n :NnnPicker %:p:h<CR>
 
-set nocompatible
-let mapleader=" "
 set cursorline
 
 " Switch syntax highlighting on when the terminal has colors or when using the
