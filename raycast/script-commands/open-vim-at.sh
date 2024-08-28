@@ -43,3 +43,5 @@ else
   tmux split-window -t "$(get-pane)" "vim +$LINE_NUM $FILE"
 fi
 
+osascript -e 'tell application "iTerm" to activate'
+
