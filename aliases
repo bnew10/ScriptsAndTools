@@ -45,6 +45,7 @@ alias gdss="git -c color.status=always status -s \$(git diff --name-only --cache
 jars () {
   git status -s | awk -F '/' '{ print $2 }' | uniq
 }
+alias gr='cd "$(git rev-parse --show-toplevel)"'
 
 # raycast
 alias confetti="open -g raycast://confetti"
