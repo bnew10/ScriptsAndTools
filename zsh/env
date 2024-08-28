@@ -1,0 +1,10 @@
+# Preferred editor
+export EDITOR='vim'
+
+# man config
+export MANCOLOR=1
+export MANPAGER='less -sR --file-size'
+
+# PATH updates
+export PATH="$HOME/.local/bin:$PATH" # user binaries
+
