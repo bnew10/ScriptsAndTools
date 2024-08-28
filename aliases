@@ -1,10 +1,10 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # aliases
 alias lal="ls -Alh"
 alias c="clear && cd"
 path () {
-  echo $PATH | sed 's/:/\n/g'
+  echo "${PATH//:/\n}"
 }
 
 # nnn
@@ -20,7 +20,7 @@ ls() {
 }
 
 # jar debug string (jds)
-DEBUG_STR="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+DEBUG_STR='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'
 alias jds="echo $DEBUG_STR && command -v pbcopy &> /dev/null && echo -n $DEBUG_STR | pbcopy"
 
 # homebrew
@@ -35,34 +35,35 @@ alias ghce="gh copilot explain"
 alias tcs='open https://tmuxcheatsheet.com'
 
 # fzf
-FZF_DEFAULTS=(--multi --cycle)
-alias fze="fzf ${FZF_DEFAULTS[*]} --bind 'enter:become(vim {+})'"
+FZF_DEFAULTS="--multi --cycle"
 
 # git
 gs () {
-  GST_OUT=$(git -c color.status=always status -s | fzf ${FZF_DEFAULTS[@]} --ansi | awk '{ print $2 }') \
-    && echo $GST_OUT \
-    && echo $GST_OUT | tr '\n' ' ' | pbcopy
+  GST_OUT="$(git -c color.status=always status -s | fzf "$FZF_DEFAULTS" --ansi | awk '{ print $2 }')" \
+    && echo "$GST_OUT" \
+    && echo "$GST_OUT" | tr '\n' ' ' | pbcopy
 }
-command -v gsh &> /dev/null && unalias gsh
+unalias gsh &> /dev/null
 gsh () {
-  TMP=$(git show --first-parent --name-only --oneline $1 | awk 'NR>1') && echo "$TMP" && echo "$TMP" | tr '\n' ' ' | pbcopy
+  TMP="$(git show --first-parent --name-only --oneline "$1" | awk 'NR>1')" && echo "$TMP" && echo "$TMP" | tr '\n' ' ' | pbcopy
 }
 alias gst='git-st'
-alias gds="git -c color.status=always status -s \$(git diff --name-only) | fzf ${FZF_DEFAULTS[*]} --ansi --bind 'enter:execute(git diff {+2})'"
-alias gdss="git -c color.status=always status -s \$(git diff --name-only --cached) | fzf ${FZF_DEFAULTS[*]} --ansi --bind 'enter:execute(git diff --staged {+2})'"
-alias jars="git status -s | awk -F '/' '{ print \$2 }' | uniq"
+alias gds="git -c color.status=always status -s \$(git diff --name-only) | fzf $FZF_DEFAULTS --ansi --bind 'enter:execute(git diff {+2})'"
+alias gdss="git -c color.status=always status -s \$(git diff --name-only --cached) | fzf $FZF_DEFAULTS --ansi --bind 'enter:execute(git diff --staged {+2})'"
+jars () {
+  git status -s | awk -F '/' '{ print $2 }' | uniq
+}
 
 # raycast
 alias confetti="open -g raycast://confetti"
 
 # docker
 dsh () {
-  docker exec -it $1 /bin/bash
+  docker exec -it "$1" /bin/bash
 }
-export COMPOSE_DIR=(~/scripts-tools/compose.yml)
+export COMPOSE_DIR=("$HOME/scripts-tools/compose.yml")
 dcupdate () {
-  docker compose -f ${COMPOSE_DIR[@]} pull $1 && docker compose -f ${COMPOSE_DIR[@]} up -d $1
+  docker compose -f "${COMPOSE_DIR[@]}" pull "$1" && docker compose -f "${COMPOSE_DIR[@]}" up -d "$1"
 }
 alias dc='docker compose'
 
