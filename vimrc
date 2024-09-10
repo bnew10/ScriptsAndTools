@@ -1,5 +1,6 @@
 set nocompatible
 let mapleader=" "
+filetype plugin indent on
 
 " vim-plug autoinstall
 let plug_file = '~/.vim/autoload/plug.vim'
@@ -13,11 +14,13 @@ endif
 call plug#begin()
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 Plug 'mcchrish/nnn.vim'
 call plug#end()
 
 " vim-sneak
 let g:sneak#label = 1
+
 
 " nnn.vim
 let g:nnn#set_default_mappings = 0
