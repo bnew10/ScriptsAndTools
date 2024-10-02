@@ -77,7 +77,7 @@ gs () {
 
 unalias gc &> /dev/null
 gc () {
-  local gitstaged='git diff --staged --name-only | xargs git -c color.status=always status -s'
+  local gitstaged='git diff --staged --name-only | xargs -I {} grealpath -s --relative-to="." "$(git rev-parse --show-toplevel)/{}" | xargs git -c color.status=always status -s'
 
   local flags=(--ansi --multi --cycle --disabled --border)
   local layoutflag=(--layout=reverse)
