@@ -1,10 +1,19 @@
-# Preferred editor
 export EDITOR='vim'
+export PAGER='less -Rc --file-size'
 
-# man config
+# man
 export MANCOLOR=1
-export MANPAGER='less -sR --file-size'
+export MANPAGER='less -sRc --file-size'
 
 # PATH updates
 export PATH="$HOME/.local/bin:$PATH" # user binaries
+
+# nnn
+export NNN_FIFO="/tmp/nnn.fifo"
+NNN_PLUGIN_PLUG='p:preview-tui;r:gitroot;f:fzcd'
+NNN_COMMAND_PLUG='x:!mv "$nnn" "$HOME/.Trash"*;c:!cursor "$(realpath "$nnn")"*'
+export NNN_PLUG="$NNN_PLUGIN_PLUG;$NNN_COMMAND_PLUG"
+
+# delta
+export DELTA_PAGER='less -c'
 
