@@ -15,6 +15,7 @@ call plug#begin()
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-rsi'
 Plug 'mcchrish/nnn.vim'
 call plug#end()
 
