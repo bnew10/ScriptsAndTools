@@ -1,66 +1,152 @@
 #!/usr/bin/env bash
 
-# aliases
+## aliases
 alias lal="ls -Alh"
 alias c="clear && cd"
 path () {
   echo "${PATH//:/\n}"
 }
 
-# nnn
+## nnn
 QUITCD_FILE="$HOME/scripts-tools/nnn/quitcd.bash_sh_zsh"
 [ -e "$QUITCD_FILE" ] && source "$QUITCD_FILE"
 
-# jar debug string (jds)
+## jar debug string (jds)
 DEBUG_STR='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'
-alias jds="echo $DEBUG_STR && command -v pbcopy &> /dev/null && echo -n $DEBUG_STR | pbcopy"
+alias jds="tee >(tr -d '\n' | pbcopy) <<< $DEBUG_STR"
 
-# homebrew
+## homebrew
 alias bud="brew update && echo '\n' && brew outdated --greedy"
 alias bug="brew upgrade --greedy"
 
-# github copilot cli
+## github copilot cli
 alias ghcs="gh copilot suggest"
 alias ghce="gh copilot explain"
 
-# tmux
+## tmux
 alias tcs='open https://tmuxcheatsheet.com'
 
-# fzf
-FZF_DEFAULTS="--multi --cycle"
+## git
+unalias gcp &> /dev/null
+# for copying newline separated lists into clipboard as space separated lists
+# ex: `git diff --name-only | gcp`
+gcp () {
+  tee >(tr '\n' ' ' | pbcopy)
+}
 
-# git
 gs () {
-  GST_OUT="$(git -c color.status=always status -s | fzf "$FZF_DEFAULTS" --ansi | awk '{ print $2 }')" \
-    && echo "$GST_OUT" \
-    && echo "$GST_OUT" | tr '\n' ' ' | pbcopy
+  local gitstatus='git -c color.status=always status -s'
+
+  local flags=(-0 --ansi --multi --cycle)
+  local layout=(--layout=reverse)
+  local border=(--border --border-label-pos='5:top' --border-label="cur dir: $(git-path)")
+  local preview=(--preview='git diff {2} | delta' --preview-window=down,80%)
+  local fzf_opts=("${flags[@]}" "${layout[@]}" "${border[@]}" "${preview[@]}")
+
+  local bindval="ctrl-d:execute(git diff {+2}),"
+  local keybindings="^D (git diff)\n"
+
+  bindval+='ctrl-s:execute(git diff --staged {+2}),'
+  keybindings+="^S (git diff --staged)\n"
+
+  bindval+="ctrl-a:execute-silent(git add {+2})+reload($gitstatus),"
+  keybindings+="^A (git add)\n"
+
+  bindval+="ctrl-r:execute-silent(git restore --staged {+2})+reload($gitstatus),"
+  keybindings+="^R (git restore --staged)\n"
+
+  bindval+='ctrl-l:execute(git log --stat),'
+  keybindings+="^L (git log)\n"
+
+  bindval+="ctrl-o:execute(source \"$HOME/scripts-tools/zsh/aliases\" && gc)+reload($gitstatus),"
+  keybindings+="^O (fzf git commit)\n"
+
+  bindval+='ctrl-x:clear-selection,'
+  keybindings+="^X (clear-selection)\n"
+
+  bindval+="ctrl-e:reload($gitstatus),"
+  keybindings+="^E (reload)"
+
+  bindval+="?:execute(echo \"$keybindings\" | less -c)"
+
+  eval "$gitstatus" | fzf "${fzf_opts[@]}" --bind="$bindval" --header='? (Help)' | awk '{ print $2 }' | gcp
 }
-unalias gsh &> /dev/null
-gsh () {
-  TMP="$(git show --first-parent --name-only --oneline "$1" | awk 'NR>1')" && echo "$TMP" && echo "$TMP" | tr '\n' ' ' | pbcopy
+
+unalias gc &> /dev/null
+gc () {
+  local gitstaged='git diff --staged --name-only | xargs git -c color.status=always status -s'
+
+  local flags=(--ansi --multi --cycle --disabled --border)
+  local layoutflag=(--layout=reverse)
+  local promptflag=(--prompt='commit message: ')
+  local infoflag=(--info-command='tail -c +3 <<< "$FZF_INFO"')
+  local previewflag=(--preview='git diff --staged {2} | delta' --preview-window=down,80%)
+  local fzf_opts=("${flags[@]}" "${layoutflag[@]}" "${promptflag[@]}" "${infoflag[@]}" "${previewflag[@]}")
+
+  local bindval='ctrl-s:execute(git diff --staged {+2}),'
+  local keybindings="^S (git diff --staged)\n"
+
+  bindval+='ctrl-l:execute(git log --stat),'
+  keybindings+="^L (git log)\n"
+
+  bindval+="ctrl-e:reload($gitstaged),"
+  keybindings+="^E (reload)\n"
+
+  bindval+='ctrl-a:select-all+execute(git diff --staged {+2})+clear-selection,'
+  keybindings+="^A (diff all staged)\n"
+
+  bindval+='ctrl-x:clear-selection,'
+  keybindings+="^X (clear-selection)"
+
+  bindval+="?:execute(echo \"$keybindings\" | less -c),"
+
+  bindval+='enter:transform:[[ -n {q} ]] && echo "become(git commit -m {q})"'
+
+  eval "$gitstaged" | fzf "${fzf_opts[@]}" --bind="$bindval" --header='? (Help)'
 }
+
+alias gsh='git show --first-parent'
+
+# copy file paths of listed files in git show
+gshc () {
+  git show --first-parent --name-only --oneline $1 | awk 'NR>1' | tee >(tr '\n' ' ' | pbcopy)
+}
+
 alias gst='git-st'
-alias gds="git -c color.status=always status -s \$(git diff --name-only) | fzf $FZF_DEFAULTS --ansi --bind 'enter:execute(git diff {+2})'"
-alias gdss="git -c color.status=always status -s \$(git diff --name-only --cached) | fzf $FZF_DEFAULTS --ansi --bind 'enter:execute(git diff --staged {+2})'"
+
+# get relative paths of given file paths
+git-reltocwd () {
+  echo "$1" | xargs -I {} grealpath -s --relative-to='.' "$(git rev-parse --show-toplevel)/{}"
+}
+
+# get path of current dir from git root (e.g., 'scripts-tools/nnn/')
+git-path () {
+  printf "%s/%s" "$(basename $(git rev-parse --show-toplevel))" "$(git rev-parse --show-prefix)"
+}
+
 jars () {
-  git status -s | awk -F '/' '{ print $2 }' | uniq
+  git status --porcelain | awk -F '/' '{ print $2 }' | uniq
 }
 alias gr='cd "$(git rev-parse --show-toplevel)"'
 
-# raycast
+## raycast
 alias confetti="open -g raycast://confetti"
 
-# docker
+## docker
+# enter container's shell
 dsh () {
   docker exec -it "$1" /bin/bash
 }
+
 export COMPOSE_DIR=("$HOME/scripts-tools/compose.yml")
+# update containers in compose file
 dcupdate () {
   docker compose -f "${COMPOSE_DIR[@]}" pull "$1" && docker compose -f "${COMPOSE_DIR[@]}" up -d "$1"
 }
+
 alias dc='docker compose'
 
-# ultx
+## ultx
 is-active () {
   ultx is-active | awk '{if ($0 ~ /active/) {print "\033[0;32m" $0 "\033[0m"} else if ($0 ~ /failed/) {print "\033[0;31m" $0 "\033[0m"} else {print $0}}'
 }
