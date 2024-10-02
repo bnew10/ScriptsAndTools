@@ -20,6 +20,16 @@ require("lazy").setup({
         require('leap').create_default_mappings()
     end
   },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
+  }
 })
 
 -- Keymappings
@@ -28,3 +38,5 @@ local defaults = { noremap = true, silent = true }
 
 map('n', '<esc><esc>', ':noh<cr>', defaults)
 
+-- Options
+vim.cmd('set iskeyword+=-') -- treat dash separated words as a word text object
