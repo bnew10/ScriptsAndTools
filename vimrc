@@ -150,3 +150,5 @@ nnoremap <silent> <C-l> <C-w>l
 " Alternate way to save
 nnoremap <silent> <C-s> <cmd>w<CR>
 
+" ===== user commands =====
+command! Cursor execute 'silent !cursor "$(realpath "%")"' | redraw!
