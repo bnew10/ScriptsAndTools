@@ -89,6 +89,9 @@ gc () {
   bindval+='ctrl-l:execute(git log --stat),'
   keybindings+="^L (git log)\n"
 
+  bindval+="ctrl-r:execute-silent(git restore --staged {+2})+reload($gitstaged),"
+  keybindings+="^R (git restore --staged)\n"
+
   bindval+="ctrl-e:reload($gitstaged),"
   keybindings+="^E (reload)\n"
 
