@@ -122,7 +122,7 @@ alias gst='git-st'
 
 # get relative paths of given file paths
 git-reltocwd () {
-  echo "$1" | xargs -I {} grealpath -s --relative-to='.' "$(git rev-parse --show-toplevel)/{}"
+  xargs -I {} grealpath -s --relative-to='.' "$(git rev-parse --show-toplevel)/{}"
 }
 
 # get path of current dir from git root (e.g., 'scripts-tools/nnn/')
