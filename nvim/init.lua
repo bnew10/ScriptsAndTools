@@ -45,3 +45,6 @@ map('n', '<C-l>', '<C-w>l', defaults)
 
 -- Options
 vim.cmd('set iskeyword+=-') -- treat dash separated words as a word text object
+
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
