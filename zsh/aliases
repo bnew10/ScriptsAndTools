@@ -106,7 +106,7 @@ gc () {
 
   bindval+="?:execute(echo \"$keybindings\" | less -c),"
 
-  bindval+='enter:transform:[[ -n {q} ]] && echo "become(git commit -m {q})"'
+  bindval+='enter:transform:[[ -n {q} ]] && echo "become(git commit -m {q})" || echo "become(aicommits)"'
 
   eval "$gitstaged" | fzf "${fzf_opts[@]}" --bind="$bindval" --header='? (Help)'
 }
