@@ -61,8 +61,8 @@ gs () {
   bindval+="ctrl-o:execute(source \"$HOME/scripts-tools/zsh/aliases\" && gc)+reload($gitstatus),"
   keybindings+="^O (fzf git commit)\n"
 
-  bindval+='ctrl-space:select-all,'
-  keybindings+="^Space (select-all)\n"
+  bindval+='ctrl-space:toggle-all,'
+  keybindings+="^Space (toggle-all)\n"
 
   bindval+='ctrl-x:clear-selection,'
   keybindings+="^X (clear-selection)\n"
