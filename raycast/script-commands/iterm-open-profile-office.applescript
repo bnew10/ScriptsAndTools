@@ -5,7 +5,7 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title Open big_text
+# @raycast.title Open office 
 # @raycast.packageName iTerm
 # @raycast.mode silent
 
@@ -27,6 +27,6 @@ on run
 			delay 0.5
 			close the current window
 		end if
-		create window with profile "big_text"
+		create window with profile "office"
 	end tell
 end run
