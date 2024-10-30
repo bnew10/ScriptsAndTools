@@ -1,0 +1,11 @@
+notARepository: skip
+promptToReturnFromSubprocess: false
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+gui:
+  nerdFontsVersion: "3"
+  theme:
+    selectedLineBgColor:
+      - black
