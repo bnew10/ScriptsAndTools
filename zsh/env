@@ -1,5 +1,6 @@
 export EDITOR='nvim'
 export PAGER='less -Rc --file-size'
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # man
 export MANCOLOR=1
