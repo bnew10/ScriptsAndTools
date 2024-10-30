@@ -137,6 +137,7 @@ alias gr='cd "$(git rev-parse --show-toplevel)"'
 
 ## raycast
 alias confetti="open -g raycast://confetti"
+alias raycast="open -a Raycast"
 
 ## docker
 # enter container's shell
