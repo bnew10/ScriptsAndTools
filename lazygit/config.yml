@@ -9,3 +9,9 @@ gui:
   theme:
     selectedLineBgColor:
       - black
+customCommands:
+  - key: 'C'
+    context: 'files'
+    command: 'aicommits'
+    subprocess: true
+    stream: true
