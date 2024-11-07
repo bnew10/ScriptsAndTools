@@ -5,8 +5,9 @@ git:
     colorArg: always
     pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
 gui:
+  skipDiscardChangeWarning: true
   nerdFontsVersion: "3"
-  showFileTree: true
+  showFileTree: false
   showCommandLog: false
   showBottomLine: true
   theme:
