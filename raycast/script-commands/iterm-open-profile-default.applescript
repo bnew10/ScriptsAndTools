@@ -10,7 +10,7 @@
 # @raycast.mode silent
 
 # Optional parameters:
-# @raycast.icon 🤖
+# @raycast.icon /Applications/iTerm.app/Contents/Resources/AppIcon.icns
 
 # Documentation:
 # @raycast.author sunrisewestern
