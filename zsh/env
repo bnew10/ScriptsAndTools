@@ -11,6 +11,8 @@ export PATH="$HOME/.local/bin:$PATH" # user binaries
 
 # nnn
 export NNN_FIFO="/tmp/nnn.fifo"
+[ -n "$NNNLVL" ] && PS1="n $PS1"
+
 NNN_PLUGIN_PLUG='p:preview-tui;r:gitroot;f:fzcd;g:quick-grep;d:diffs'
 NNN_COMMAND_PLUG='x:!mv "$nnn" "$HOME/.Trash"*;c:!cursor "$(realpath "$nnn")"*;l:!lazygit*'
 export NNN_PLUG="$NNN_PLUGIN_PLUG;$NNN_COMMAND_PLUG"
