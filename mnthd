@@ -1,3 +1,0 @@
-#!/bin/bash
-
-sudo mount -t hfsplus -o force,rw /dev/sda1 /media/toshiba
