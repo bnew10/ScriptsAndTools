@@ -1,4 +1,4 @@
-export EDITOR='nvim'
+export EDITOR='nv'
 export PAGER='less -Rc --file-size'
 export XDG_CONFIG_HOME="$HOME/.config"
 

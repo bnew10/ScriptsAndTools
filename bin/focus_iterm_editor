@@ -1,0 +1,13 @@
+#!/usr/bin/env osascript
+
+tell application "iTerm2"
+  repeat with aWindow in windows
+    tell aWindow
+      set profName to hotkey window profile
+      if profName = "editor" then
+        select
+        exit
+      end if
+    end tell
+  end repeat
+end tell

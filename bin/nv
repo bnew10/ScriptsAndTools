@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Define the session name
+SESSION_NAME="editor"
+
+CMD="nvim $*"
+
+# If the session does not exist, create it
+if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    tmux new-session -d -s "$SESSION_NAME" "$CMD"
+else
+    # Create a new window in the session
+    tmux new-window -t "$SESSION_NAME" "$CMD"
+fi
+
+focus_iterm_editor
