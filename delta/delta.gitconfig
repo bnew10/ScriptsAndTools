@@ -1,5 +1,5 @@
 [include]
-    path = ~/scripts-tools/themes.gitconfig
+    path = ~/scripts-tools/delta/themes.gitconfig
 
 [core]
     pager = delta --paging always
