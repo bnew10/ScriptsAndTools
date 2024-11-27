@@ -8,6 +8,7 @@ export MANPAGER='less -sRc --file-size'
 
 # PATH updates
 export PATH="$HOME/.local/bin:$PATH" # user binaries
+export PATH="$(brew --prefix git)/share/git-core/contrib/diff-highlight:$PATH" # diff-highlight
 
 # nnn
 export NNN_FIFO="/tmp/nnn.fifo"
