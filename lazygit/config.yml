@@ -1,5 +1,7 @@
 notARepository: skip
 promptToReturnFromSubprocess: false
+os:
+  editPreset: 'nvim-remote'
 git:
   paging:
     colorArg: always
