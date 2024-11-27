@@ -3,7 +3,7 @@
 ## aliases
 alias lal="ls -Alh"
 alias c="clear && cd"
-path () {
+path() {
   echo "${PATH//:/\n}"
 }
 
@@ -27,112 +27,36 @@ alias ghce="gh copilot explain"
 alias tcs='open https://tmuxcheatsheet.com'
 
 ## git
-unalias gcp &> /dev/null
+unalias gcp &>/dev/null
 # for copying newline separated lists into clipboard as space separated lists
 # ex: `git diff --name-only | gcp`
-gcp () {
+gcp() {
   tee >(tr '\n' ' ' | pbcopy)
-}
-
-gs () {
-  local gitstatus='git -c color.status=always status -s'
-
-  local flags=(-0 --ansi --multi --cycle)
-  local layout=(--layout=reverse)
-  local border=(--border --border-label-pos='5:top' --border-label="cur dir: $(git-path)")
-  local preview=(--preview='git diff {2} | delta' --preview-window=down,80%)
-  local fzf_opts=("${flags[@]}" "${layout[@]}" "${border[@]}" "${preview[@]}")
-
-  local bindval="ctrl-d:execute(git diff {+2}),"
-  local keybindings="^D (git diff)\n"
-
-  bindval+='ctrl-s:execute(git diff --staged {+2}),'
-  keybindings+="^S (git diff --staged)\n"
-
-  bindval+="ctrl-a:execute-silent(git add {+2})+reload($gitstatus),"
-  keybindings+="^A (git add)\n"
-
-  bindval+="ctrl-r:execute-silent(git restore --staged {+2})+reload($gitstatus),"
-  keybindings+="^R (git restore --staged)\n"
-
-  bindval+='ctrl-l:execute(git log --stat),'
-  keybindings+="^L (git log)\n"
-
-  bindval+="ctrl-o:execute(source \"$HOME/scripts-tools/zsh/aliases\" && gc)+reload($gitstatus),"
-  keybindings+="^O (fzf git commit)\n"
-
-  bindval+='ctrl-space:toggle-all,'
-  keybindings+="^Space (toggle-all)\n"
-
-  bindval+='ctrl-x:clear-selection,'
-  keybindings+="^X (clear-selection)\n"
-
-  bindval+="ctrl-e:reload($gitstatus),"
-  keybindings+="^E (reload)"
-
-  bindval+="?:execute(echo \"$keybindings\" | less -c)"
-
-  eval "$gitstatus" | fzf "${fzf_opts[@]}" --bind="$bindval" --header='? (Help)' | awk '{ print $2 }' | gcp
-}
-
-unalias gc &> /dev/null
-gc () {
-  local gitstaged='git diff --staged --name-only | xargs -I {} grealpath -s --relative-to="." "$(git rev-parse --show-toplevel)/{}" | xargs git -c color.status=always status -s'
-
-  local flags=(--ansi --multi --cycle --disabled --border)
-  local layoutflag=(--layout=reverse)
-  local promptflag=(--prompt='commit message: ')
-  local infoflag=(--info-command='tail -c +3 <<< "$FZF_INFO"')
-  local previewflag=(--preview='git diff --staged {2} | delta' --preview-window=down,80%)
-  local fzf_opts=("${flags[@]}" "${layoutflag[@]}" "${promptflag[@]}" "${infoflag[@]}" "${previewflag[@]}")
-
-  local bindval='ctrl-s:execute(git diff --staged {+2}),'
-  local keybindings="^S (git diff --staged)\n"
-
-  bindval+='ctrl-l:execute(git log --stat),'
-  keybindings+="^L (git log)\n"
-
-  bindval+="ctrl-r:execute-silent(git restore --staged {+2})+reload($gitstaged),"
-  keybindings+="^R (git restore --staged)\n"
-
-  bindval+="ctrl-e:reload($gitstaged),"
-  keybindings+="^E (reload)\n"
-
-  bindval+='ctrl-a:select-all+execute(git diff --staged {+2})+clear-selection,'
-  keybindings+="^A (diff all staged)\n"
-
-  bindval+='ctrl-x:clear-selection,'
-  keybindings+="^X (clear-selection)"
-
-  bindval+="?:execute(echo \"$keybindings\" | less -c),"
-
-  bindval+='enter:transform:[[ -n {q} ]] && echo "become(git commit -m {q})" || echo "become(aicommits)"'
-
-  eval "$gitstaged" | fzf "${fzf_opts[@]}" --bind="$bindval" --header='? (Help)'
 }
 
 alias gsh='git show --first-parent'
 
 # copy file paths of listed files in git show
-gshc () {
-  git show --first-parent --name-only --oneline $1 | awk 'NR>1' | tee >(tr '\n' ' ' | pbcopy)
+gshc() {
+  git show --first-parent --name-only --oneline $1 | awk 'NR>1' | gcp
 }
 
 alias gst='git-st'
 
 # get relative paths of given file paths
-git-reltocwd () {
+git-reltocwd() {
   xargs -I {} grealpath -s --relative-to='.' "$(git rev-parse --show-toplevel)/{}"
 }
 
 # get path of current dir from git root (e.g., 'scripts-tools/nnn/')
-git-path () {
+git-path() {
   printf "%s/%s" "$(basename $(git rev-parse --show-toplevel))" "$(git rev-parse --show-prefix)"
 }
 
-jars () {
+jars() {
   git status --porcelain | awk -F '/' '{ print $2 }' | uniq
 }
+
 alias gr='cd "$(git rev-parse --show-toplevel)"'
 
 ## raycast
@@ -141,33 +65,31 @@ alias raycast="open -a Raycast"
 
 ## docker
 # enter container's shell
-dsh () {
+dsh() {
   docker exec -it "$1" /bin/bash
 }
 
 export COMPOSE_DIR=("$HOME/scripts-tools/compose.yml")
 # update containers in compose file
-dcupdate () {
+dcupdate() {
   docker compose -f "${COMPOSE_DIR[@]}" pull "$1" && docker compose -f "${COMPOSE_DIR[@]}" up -d "$1"
 }
 
 alias dc='docker compose'
 
 ## ultx
-is-active () {
+is-active() {
   ultx is-active | awk '{if ($0 ~ /active/) {print "\033[0;32m" $0 "\033[0m"} else if ($0 ~ /failed/) {print "\033[0;31m" $0 "\033[0m"} else {print $0}}'
 }
 
 ## lazygit
-lg()
-{
-    export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
+lg() {
+  export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
 
-    lazygit "$@"
+  lazygit "$@"
 
-    if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
-            cd "$(cat $LAZYGIT_NEW_DIR_FILE)"
-            rm -f $LAZYGIT_NEW_DIR_FILE > /dev/null
-    fi
+  if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
+    cd "$(cat $LAZYGIT_NEW_DIR_FILE)"
+    rm -f $LAZYGIT_NEW_DIR_FILE >/dev/null
+  fi
 }
-
