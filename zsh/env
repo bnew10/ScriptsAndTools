@@ -21,3 +21,5 @@ export NNN_PLUG="$NNN_PLUGIN_PLUG;$NNN_COMMAND_PLUG"
 # delta
 export DELTA_PAGER='less -c'
 
+# zsh-autosuggestions
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#88898a'

@@ -29,6 +29,9 @@ source "$ZSH/oh-my-zsh.sh"
 source "$HOME/.aliases"
 source "$HOME/.env"
 
+# zsh-autosuggestions
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # Options
 setopt CORRECT
 setopt CORRECT_ALL
