@@ -38,3 +38,11 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 setopt CORRECT
 setopt CORRECT_ALL
 
+# nnn
+nnn_cd() # nnn subshell cd  
+{
+    if ! [ -z "$NNN_PIPE" ]; then
+        printf "%s\0" "0c${PWD}" > "${NNN_PIPE}" !&
+    fi
+}
+trap "nnn_cd" EXIT
