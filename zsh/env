@@ -2,6 +2,9 @@ export EDITOR='nv'
 export PAGER='less -Rc --file-size'
 export XDG_CONFIG_HOME="$HOME/.config"
 
+# tms
+export TMS_CONFIG_FILE="$XDG_CONFIG_HOME/tms/config.toml"
+
 # man
 export MANCOLOR=1
 export MANPAGER='less -sRc --file-size'
