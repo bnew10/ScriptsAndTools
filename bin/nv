@@ -3,13 +3,13 @@
 # Define the session name
 SESSION_NAME="editor"
 
-CMD="nvim $*"
+CMD=("nvim" "$@")
 
 # If the session exists...
 if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     # Create a new window in the session
-    tmux new-window -t "$SESSION_NAME" "$CMD"
+    tmux new-window -t "$SESSION_NAME" "${CMD[@]}"
     focus_iterm_editor
 else
-    eval "$CMD"
+    "${CMD[@]}"
 fi
