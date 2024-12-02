@@ -26,6 +26,9 @@ alias ghce="gh copilot explain"
 ## tmux
 alias tcs='open https://tmuxcheatsheet.com'
 
+## tms
+alias tms-sessions-red="tms sessions | sed -E 's/([[:alnum:]]+)\*/\x1b[31m\1\x1b[0m/g'"
+
 ## git
 unalias gcp &>/dev/null
 # for copying newline separated lists into clipboard as space separated lists
