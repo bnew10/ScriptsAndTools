@@ -15,7 +15,8 @@ export PATH="$(brew --prefix git)/share/git-core/contrib/diff-highlight:$PATH" #
 
 # nnn
 export NNN_FIFO="/tmp/nnn.fifo"
-[ -n "$NNNLVL" ] && PS1="n $PS1"
+[ -n "$NNNLVL" ] && PS1="n $PS1" # sub-shell prompt
+export NNN_ORDER="T:$HOME/Downloads"
 
 NNN_PLUGIN_PLUG='p:preview-tui;r:gitroot;f:fzcd;g:quick-grep;d:diffs;s:shell'
 NNN_COMMAND_PLUG='x:!mv "$nnn" "$HOME/.Trash"*;c:!cursor "$(realpath "$nnn")"*;l:!lazygit*'
