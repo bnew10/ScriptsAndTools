@@ -72,7 +72,7 @@ dsh() {
   docker exec -it "$1" /bin/bash
 }
 
-export COMPOSE_DIR=("$HOME/scripts-tools/compose.yml")
+export COMPOSE_DIR=("$HOME/scripts-tools/media-server/compose.yml")
 # update containers in compose file
 dcupdate() {
   docker compose -f "${COMPOSE_DIR[@]}" pull "$1" && docker compose -f "${COMPOSE_DIR[@]}" up -d "$1"
