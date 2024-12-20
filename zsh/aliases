@@ -96,3 +96,10 @@ lg() {
     rm -f $LAZYGIT_NEW_DIR_FILE >/dev/null
   fi
 }
+
+## man
+man() {
+  tmux rename-window "man $*"
+  command man "$@"
+  tmux set-option -w automatic-rename on
+}
