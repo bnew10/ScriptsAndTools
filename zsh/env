@@ -1,5 +1,8 @@
+#!/usr/bin/env zsh
+
 export EDITOR='nv'
-export PAGER='less -Rc --file-size'
+export LESS='iR'
+export PAGER='less --file-size'
 export XDG_CONFIG_HOME="$HOME/.config"
 
 # tms
@@ -7,23 +10,19 @@ export TMS_CONFIG_FILE="$XDG_CONFIG_HOME/tms/config.toml"
 
 # man
 export MANCOLOR=1
-export MANPAGER='less -sRc --file-size'
+export MANPAGER='less -cs --file-size'
+export MANPATH=":/opt/homebrew/share/man$MANPATH"
 
 # PATH updates
 export PATH="$HOME/.local/bin:$PATH" # user binaries
 export PATH="$(brew --prefix git)/share/git-core/contrib/diff-highlight:$PATH" # diff-highlight
-
-# nnn
-export NNN_FIFO="/tmp/nnn.fifo"
-[ -n "$NNNLVL" ] && PS1="n $PS1" # sub-shell prompt
-export NNN_ORDER="T:$HOME/Downloads"
-
-NNN_PLUGIN_PLUG='p:preview-tui;r:gitroot;f:fzcd;g:quick-grep;d:diffs;s:shell'
-NNN_COMMAND_PLUG='x:!mv "$nnn" "$HOME/.Trash"*;c:!cursor "$(realpath "$nnn")"*;l:!lazygit*'
-export NNN_PLUG="$NNN_PLUGIN_PLUG;$NNN_COMMAND_PLUG"
-
-# delta
-export DELTA_PAGER='less -c'
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH" # e.g., gls -> ls
 
 # zsh-autosuggestions
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#88898a'
+
+# fzf
+export FZF_DEFAULT_OPTS="--style=full --layout=reverse --exact --scheme=path"
+
+# starship
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"

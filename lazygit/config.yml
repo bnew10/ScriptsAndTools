@@ -1,7 +1,14 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+
 notARepository: skip
 promptToReturnFromSubprocess: false
 os:
-  editPreset: 'nvim-remote'
+  editPreset: "nvim-remote"
+  # editPreset: "nvim"
+  # edit: '[ -z "$NVIM" ] && nvim -- {{filename}} || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote-tab {{filename}})'
+  # editAtLine: '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" &&  nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":{{line}}<CR>")'
+  # editAtLineAndWait: "nvim +{{line}} {{filename}}"
+  # openDirInEditor: '[ -z "$NVIM" ] && (nvim -- {{dir}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{dir}})'
 git:
   paging:
     colorArg: always
@@ -9,15 +16,25 @@ git:
 gui:
   skipDiscardChangeWarning: true
   nerdFontsVersion: "3"
-  showFileTree: false
+  showFileTree: true
   showCommandLog: false
   showBottomLine: true
   theme:
     selectedLineBgColor:
-      - black
+      - blue
 customCommands:
-  - key: 'C'
-    context: 'files'
-    command: 'aicommits'
+  - key: "C"
+    context: "files"
+    command: "aicommits"
     subprocess: true
     stream: true
+  - key: "Y"
+    description: "Open Yazi at hovered file"
+    context: "files"
+    command: "yazi {{.SelectedFile.Name}}"
+    subprocess: true
+  - key: "Y"
+    description: "Open Yazi at hovered file"
+    context: "commitFiles"
+    command: "yazi {{.SelectedCommitFile.Name}}"
+    subprocess: true
