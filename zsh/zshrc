@@ -1,30 +1,15 @@
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/bnewton/.oh-my-zsh"
+#!/usr/bin/env zsh
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="gentoo-custom"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
-# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
-COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git z)
+# manually source ghostty shell integration to bring it into all shells
+if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+  source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
+fi
 
 # set important homebrew params like $HOMEBREW_PREFIX
 eval "$(/opt/homebrew/bin/brew shellenv)"
-# FPATH updates; oh-my-zsh.sh calls compinit
 FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:${FPATH}"
-
-source "$ZSH/oh-my-zsh.sh"
+autoload -Uz compinit
+compinit
 
 source "$HOME/.aliases"
 source "$HOME/.env"
@@ -34,17 +19,11 @@ source "$HOME/.java_env"
 source "$HOME/.api_keys"
 
 # zsh-autosuggestions
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Options
 setopt CORRECT
 setopt CORRECT_ALL
 
-# nnn
-nnn_cd() # nnn subshell cd
-{
-    if ! [ -z "$NNN_PIPE" ]; then
-        printf "%s\0" "0c${PWD}" > "${NNN_PIPE}" !&
-    fi
-}
-trap "nnn_cd" EXIT
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"

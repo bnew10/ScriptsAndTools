@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2016
+
+# Switch between Ripgrep mode and fzf filtering mode (CTRL-S)
+rm -f /tmp/rg-fzf-{r,f}
+RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case --hidden "
+fzf --ansi --disabled \
+      --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
+      --bind 'ctrl-n:change-nth(1|4..|)' \
+      --bind 'result:transform-prompt:[[ ! $FZF_PROMPT =~ ripgrep ]] &&
+      if [[ $FZF_NTH = 1 ]]; then echo "2. fzf-path> "; elif [[ $FZF_NTH = "4.." ]]; then echo "2. fzf-src> "; else echo "2. fzf> "; fi ||
+      echo "1. ripgrep> "' \
+      --bind 'ctrl-s:transform:[[ ! $FZF_PROMPT =~ ripgrep ]] &&
+      echo "rebind(change)+change-prompt(1. ripgrep> )+change-nth(..)+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||
+      echo "unbind(change)+change-prompt(2. fzf> )+change-nth(..)+enable-search+transform-query:echo \{q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f"' \
+      --color "hl:-1:underline,hl+:-1:underline:reverse" \
+      --prompt '1. ripgrep> ' \
+      --delimiter : \
+      --header 'CTRL-S: Switch between ripgrep/fzf' \
+      --preview 'bat --color=always {1} --highlight-line {2}' \
+      --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+      </dev/null

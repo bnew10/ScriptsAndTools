@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+run_dir="${TMPDIR}tmux"
+
+server_start_time="$(tmux display -p '#{start_time}')"
+server_run_dir="$run_dir/$server_start_time"
+
+sessions="$(tmux list-sessions -F '#{s/\$//:session_id}' | sort -n)"
+while read -r session_id; do
+  session_run_dir="$server_run_dir/$session_id"
+  if [[ ! -d $session_run_dir ]]; then
+    mkdir -p "$session_run_dir"
+  fi
+done <<<"$sessions"

@@ -1,26 +1,31 @@
 #!/usr/bin/env bash
 
 # Define the session name
-SESSION_NAME="editor"
+session_name="editor"
 
-CMD=("nvim" "$@")
+cmd=("nvim" "$@")
 # If nvim has no arguments/input paths...
-[[ ${#CMD[@]} == 1 ]] && FILE_PATH="$PWD" || FILE_PATH="${CMD[-1]}"
+[[ ${#cmd[@]} == 1 ]] && file_path="$PWD" || file_path="${cmd[-1]}"
 # If the selected file path isn't a directory...
-[[ ! -d $FILE_PATH ]] && DIR_PATH="$(dirname "$FILE_PATH")" || DIR_PATH="$FILE_PATH"
+[[ ! -d $file_path ]] && dir_path="$(dirname "$file_path")" || dir_path="$file_path"
+
+# If the pwd is in a git repo...
+if git_repo="$(git -C "$dir_path" rev-parse --show-toplevel 2>/dev/null)"; then
+    git_repo_base="$(basename "$git_repo")"
+    file_path_base="$(basename "$file_path")"
+    window_name="$(printf "%s (%s)" "$git_repo_base" "$file_path_base")"
+    [[ $dir_path != "$git_repo" ]] && cmd+=("--cmd" "cd $git_repo")
+else
+    window_name="$(basename "$file_path")"
+fi
 
 # If the session exists...
-if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-    # If the pwd is in a git repo...
-    if GIT_REPO="$(git -C "$DIR_PATH" rev-parse --show-toplevel 2>/dev/null)"; then
-        WINDOW_NAME="$(basename "$GIT_REPO")"
-        [[ $DIR_PATH != "$GIT_REPO" ]] && CMD+=("--cmd" "cd $GIT_REPO")
-    else
-        WINDOW_NAME="$(basename "$FILE_PATH")"
-    fi
+if tmux has-session -t "$session_name" 2>/dev/null; then
     # Create a new window in the session
-    tmux new-window -t "$SESSION_NAME" -n "$WINDOW_NAME" "${CMD[@]}"
-    focus_iterm_editor
+    tmux new-window -t "$session_name" -n "$window_name" "${cmd[@]}"
+    # focus_iterm_editor
 else
-    "${CMD[@]}"
+    tmux rename-window "$window_name"
+    "${cmd[@]}"
+    tmux set-option -w automatic-rename on
 fi

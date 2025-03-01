@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+tmux-windowizer 'build'
+
+tmux-windowizer 'xfer'
+
+tmux-windowizer '65-66' hsplit
+
+tmux-windowizer '65'
+
+tmux-windowizer 'ssh-tunnel'

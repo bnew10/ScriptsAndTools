@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "5005",
+      "projectName": "commandx-frontend",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 5005
+    },
+    {
+      "type": "java",
+      "name": "5006",
+      "projectName": "commandx-frontend",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 5006
+    }
+  ]
+}

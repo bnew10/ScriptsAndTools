@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-# Description: Start an interactive zsh shell.
-
-export nnn="$1"
-export NNNLVL=1
-
-zsh -i

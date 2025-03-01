@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+tmux_ls_command="printf \"\$(tmux list-sessions -F '#{?session_attached,\e[32m#S\e[0m,#S}')\""
+selected="$(eval "$tmux_ls_command" | fzf --tmux=25% --style=full --ansi --exact \
+  --color='hl:-1,hl+:-1' \
+  --list-label 'sessions' \
+  --bind "alt-d:reload:tmux kill-session -t {} && $tmux_ls_command" \
+  --bind 'ctrl-n:become:tmux new-session -ds {q} && tmux switch-client -t {q}')"
+
+if [[ -z $selected ]]; then
+  exit 0
+fi
+
+tmux switch-client -t "$selected"
