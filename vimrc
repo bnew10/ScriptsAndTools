@@ -17,7 +17,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-fugitive'
-Plug 'mcchrish/nnn.vim'
 call plug#end()
 
 " vim-sneak
