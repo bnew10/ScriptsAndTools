@@ -23,9 +23,10 @@ fi
 if tmux has-session -t "$session_name" 2>/dev/null; then
     # Create a new window in the session
     tmux new-window -t "$session_name" -n "$window_name" "${cmd[@]}"
-    # focus_iterm_editor
-else
+elif [ -n "$TMUX" ]; then
     tmux rename-window "$window_name"
     "${cmd[@]}"
     tmux set-option -w automatic-rename on
+else
+    "${cmd[@]}"
 fi
