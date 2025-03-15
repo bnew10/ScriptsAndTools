@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# first time usage of "aws" cli tool requires user to run "aws configure"
+
 echo 'Copying plex config, "Preferences.xml"'
 aws s3 cp /mnt/Seagate/plex-config/Library/Application\ Support/Plex\ Media\ Server/Preferences.xml s3://bnew10-storage/plex-config/
 
