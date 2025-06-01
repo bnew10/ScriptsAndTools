@@ -1,0 +1,56 @@
+#:schema https://starship.rs/config-schema.json
+
+format = """
+${custom.osc133}\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$jobs\
+$line_break\
+${env_var.yazi_level}\
+$character"""
+
+[directory]
+style = "blue"
+
+[character]
+success_symbol = "[❯](purple)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
+
+[git_branch]
+format = "[$branch]($style)"
+style = "243"
+
+[git_status]
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
+style = "cyan"
+conflicted = "​"
+untracked = "​"
+modified = "​"
+staged = "​"
+renamed = "​"
+deleted = "​"
+stashed = "≡"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
+
+[env_var.yazi_level]
+description = "Indicate the shell was launched by `yazi`"
+variable = "YAZI_LEVEL"
+# 🦆: U+1f986 Duck
+# Alternatively: " ": U+E795 <Private Use>
+symbol = "🦆"
+format = '[ $symbol ]()'
+
+[custom.osc133]
+command = ''' printf '\x1b]133;A\x1b\\' '''
+when = true
+unsafe_no_escape = true
+format = "[($output)]()"
+disabled = true
