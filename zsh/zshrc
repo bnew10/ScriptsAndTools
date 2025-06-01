@@ -5,18 +5,24 @@ if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
   source "$GHOSTTY_RESOURCES_DIR"/shell-integration/zsh/ghostty-integration
 fi
 
-# set important homebrew params like $HOMEBREW_PREFIX
-eval "$(/opt/homebrew/bin/brew shellenv)"
-FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:${FPATH}"
-autoload -Uz compinit
-compinit
+if command -v /opt/homebrew/bin/brew >/dev/null; then
+  # set important homebrew params like $HOMEBREW_PREFIX
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:${FPATH}"
+  autoload -Uz compinit
+  compinit
+fi
 
-source "$HOME/.aliases"
-source "$HOME/.env"
-
-source "$HOME/.java_env"
-
-source "$HOME/.api_keys"
+source_files=(
+  ".aliases"
+  ".env"
+  ".java_env"
+  ".api_keys"
+)
+for src in "${source_files[@]}"; do
+  src_path="$HOME/$src"
+  [[ -e $src_path ]] && source "$src_path"
+done
 
 # zsh-autosuggestions
 source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
