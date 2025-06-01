@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+with="$1"
+
+# get terminal names of all tmux panes
+pane_ttys="$(tmux list-panes -a -F '#{b:pane_tty}' | sort -u --radixsort)"
+
+# get terminal names of all terminals running `with`
+with_pids="$(pgrep -xd ',' "$with")"
+if [[ -n $with_pids ]]; then
+  with_ttys="$(ps -o tty= -p "$with_pids" | tr -d '[:blank:]' | sort -u --radixsort)"
+else
+  tmux display "$with process can't be found"
+  exit 0
+fi
+
+# get terminal names of terminals running `with` within tmux
+tmux_with_ttys="$(sort -m <(echo "$pane_ttys") <(echo "$with_ttys") | uniq -d)"
+
+if [[ -n $tmux_with_ttys ]]; then
+  regex=$(paste -sd '|' - <<<"$tmux_with_ttys")
+  tmux choose-tree -Zw -f "#{m/r:$regex,#{pane_tty}}" -F '#{?window_format,#{window_name},}'
+else
+  tmux display "$with is not running in any tmux windows"
+fi

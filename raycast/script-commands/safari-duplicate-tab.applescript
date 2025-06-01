@@ -10,12 +10,13 @@
 # @raycast.icon /Applications/Safari.app/Contents/Resources/AppIcon.icns
 
 # @Documentation:
-# @raycast.author Thomas Paul Mann
-# @raycast.authorURL https://github.com/thomaspaulmann
-# @raycast.description Duplicates and opens the currently active tab.
+# @raycast.author Bradley Newton
+# @raycast.authorURL https://github.com/bnew10
+# @raycast.description Duplicates the currently active tab.
 
-tell window 1 of application "Safari"
-  set currentURL to get URL of current tab
-  set newTab to make new tab with properties { URL: currentURL }
-  set current tab to newTab
+tell application "System Events"
+  tell process "Safari"
+    click menu item "Duplicate Tab" of menu 1 of menu bar item "Window" of menu bar 1
+  end
 end
+return

@@ -53,7 +53,7 @@ jars() {
   git status --porcelain | awk -F '/' '{ print $2 }' | uniq
 }
 
-alias gr='cd "$(git rev-parse --show-toplevel)"'
+alias gt='cd "$(git rev-parse --show-toplevel)"'
 
 alias gco='git checkout'
 alias gcb='git checkout -b'
@@ -61,7 +61,7 @@ alias gd='git diff'
 
 ## raycast
 alias confetti="open -g raycast://confetti"
-alias raycast="open -a Raycast"
+alias raycast="open /Applications/Raycast.app"
 
 ## docker
 # enter container's shell
@@ -83,7 +83,7 @@ is-active() {
 }
 
 ## lazygit
-lg() {
+gl() {
   export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
 
   lazygit "$@"
@@ -96,9 +96,16 @@ lg() {
 
 ## man
 man() {
-  tmux rename-window "man $*"
-  command man "$@"
-  tmux set-option -w automatic-rename on
+  if [[ -n $TMUX ]]; then
+    local win_id
+    win_id="$(tmux display -p '#{window_id}')"
+
+    tmux rename-window -t ":$win_id" "man $*"
+    command man "$@"
+    tmux set-option -wt ":$win_id" automatic-rename on
+  else
+    command man "$@"
+  fi
 }
 
 ## yazi

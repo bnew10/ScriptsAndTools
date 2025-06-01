@@ -17,6 +17,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-fugitive'
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 " vim-sneak
@@ -139,6 +140,7 @@ map <silent> <leader>l :set list!<CR> " Toggle tabs and EOL
 " ===== remappings =====
 " easier escape
 inoremap <silent> jj <Esc>
+inoremap <silent> jk <Esc>
 " clear highlighted words
 nnoremap <silent> <Esc><Esc> :noh<return>
 " Remove all trailing whitespace by pressing F5

@@ -24,9 +24,10 @@ if tmux has-session -t "$session_name" 2>/dev/null; then
     # Create a new window in the session
     tmux new-window -t "$session_name" -n "$window_name" "${cmd[@]}"
 elif [ -n "$TMUX" ]; then
-    tmux rename-window "$window_name"
+    win_id="$(tmux display -p '#{window_id}')"
+    tmux rename-window -t ":$win_id" "$window_name"
     "${cmd[@]}"
-    tmux set-option -w automatic-rename on
+    tmux set-option -wt ":$win_id" automatic-rename on
 else
     "${cmd[@]}"
 fi

@@ -6,8 +6,4 @@ tmux-windowizer 'build'
 
 tmux-windowizer 'xfer' hsplit
 
-tmux-windowizer 'setup' hsplit
-
 tmux-windowizer 'ssh-tunnel'
-
-tmux-windowizer 'remote'

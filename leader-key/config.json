@@ -1,0 +1,139 @@
+{
+  "actions" : [
+    {
+      "actions" : [
+        {
+          "key" : "j",
+          "label" : "My issues",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/jira/open-issues"
+        },
+        {
+          "key" : "s",
+          "label" : "Search issues",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/jira/search-issues"
+        }
+      ],
+      "iconPath" : "widget.extralarge",
+      "key" : "j",
+      "label" : "Jira",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "q",
+          "label" : "Quit...",
+          "type" : "url",
+          "value" : "raycast://extensions/mackopes/quit-applications/index"
+        },
+        {
+          "key" : "h",
+          "label" : "Clipboard history",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/clipboard-history/clipboard-history"
+        },
+        {
+          "key" : "c",
+          "label" : "Toggle caffeinate",
+          "type" : "url",
+          "value" : "raycast://extensions/mooxl/coffee/caffeinateToggle"
+        }
+      ],
+      "iconPath" : "sparkles",
+      "key" : "r",
+      "label" : "Raycast",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "c",
+          "label" : "Center",
+          "type" : "url",
+          "value" : "rectangle://execute-action?name=center-prominently"
+        },
+        {
+          "key" : "m",
+          "label" : "Maximize",
+          "type" : "url",
+          "value" : "rectangle://execute-action?name=maximize"
+        },
+        {
+          "key" : "h",
+          "label" : "Left half",
+          "type" : "url",
+          "value" : "rectangle://execute-action?name=left-half"
+        },
+        {
+          "key" : "H",
+          "label" : "Previous display",
+          "type" : "url",
+          "value" : "rectangle://execute-action?name=previous-display"
+        },
+        {
+          "key" : "l",
+          "label" : "Right half",
+          "type" : "url",
+          "value" : "rectangle://execute-action?name=right-half"
+        },
+        {
+          "key" : "L",
+          "label" : "Next display",
+          "type" : "url",
+          "value" : "rectangle://execute-action?name=next-display"
+        },
+        {
+          "key" : "r",
+          "label" : "Restore",
+          "type" : "url",
+          "value" : "rectangle://execute-action?name=restore"
+        },
+        {
+          "key" : "j",
+          "label" : "Center two-thirds",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/window-management/center-two-thirds"
+        },
+        {
+          "key" : "J",
+          "label" : "Center three-fourths",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/window-management/center-three-fourths"
+        }
+      ],
+      "iconPath" : "appwindow.swipe.rectangle",
+      "key" : "w",
+      "label" : "Window",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "d",
+          "label" : "Duplicate tab",
+          "type" : "url",
+          "value" : "raycast://script-commands/safari-duplicate-tab"
+        },
+        {
+          "key" : "n",
+          "label" : "New window",
+          "type" : "url",
+          "value" : "raycast://script-commands/safari-new-window"
+        },
+        {
+          "key" : "o",
+          "label" : "Only tab in new window",
+          "type" : "url",
+          "value" : "raycast://script-commands/safari-move-tab-to-new-window"
+        }
+      ],
+      "iconPath" : "safari.fill",
+      "key" : "s",
+      "label" : "Safari",
+      "type" : "group"
+    }
+  ],
+  "type" : "group"
+}

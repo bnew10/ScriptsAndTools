@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+curl -d "Finished" "ntfy.sh/$HOSTNAME"

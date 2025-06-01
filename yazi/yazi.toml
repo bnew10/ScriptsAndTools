@@ -1,0 +1,31 @@
+#:schema https://yazi-rs.github.io/schemas/yazi.json
+
+[mgr]
+show_hidden = true
+
+[opener]
+edit = [
+  { run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
+  { run = 'tmux new-window -a "$EDITOR $@; $SHELL"', desc = "$EDITOR (new-window)", orphan = true, for = "unix" },
+]
+
+[open]
+prepend_rules = [
+  { mime = "application/wine-extension-ini", use = ["edit", "reveal"] },
+]
+
+[plugin]
+prepend_fetchers = [
+  { id = "git", name = "*", run = "git" },
+  { id = "git", name = "*/", run = "git" },
+]
+
+prepend_previewers = [
+  # Archive previewer
+  { mime = "application/*zip", run = "ouch" },
+  { mime = "application/x-tar", run = "ouch" },
+  { mime = "application/x-bzip2", run = "ouch" },
+  { mime = "application/x-7z-compressed", run = "ouch" },
+  { mime = "application/x-rar", run = "ouch" },
+  { mime = "application/x-xz", run = "ouch" },
+]

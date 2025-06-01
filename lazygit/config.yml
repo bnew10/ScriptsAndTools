@@ -26,15 +26,14 @@ customCommands:
   - key: "C"
     context: "files"
     command: "aicommits"
-    subprocess: true
-    stream: true
+    output: terminal
   - key: "Y"
     description: "Open Yazi at hovered file"
     context: "files"
     command: "yazi {{.SelectedFile.Name}}"
-    subprocess: true
+    output: terminal
   - key: "Y"
     description: "Open Yazi at hovered file"
     context: "commitFiles"
     command: "yazi {{.SelectedCommitFile.Name}}"
-    subprocess: true
+    output: terminal

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+close_direction="$1"
+case "$close_direction" in
+'left') op='>' ;;
+'right') op='<' ;;
+esac
+
+windows_to_close="$(tmux list-windows -f "#{e|$op:#{active_window_index},#{window_index}}" -F '#{window_index}' | tac)"
+
+while read -r window_index; do
+  tmux kill-window -t "$window_index"
+done <<<"$windows_to_close"

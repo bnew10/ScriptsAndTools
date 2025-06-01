@@ -1,0 +1,40 @@
+#:schema https://yazi-rs.github.io/schemas/keymap.json
+
+[mgr]
+prepend_keymap = [
+ { on = "<Enter>", run = "enter", desc = "Enter the child directory" },
+
+ { on = "s", run = 'search --via=fd --args="--unrestricted"', desc = "Search files by name via fd" },
+ { on = "S", run = 'search --via=fd --args="--unrestricted --full-path"', desc = "Search files by full path via fd" },
+
+ { on = "R", run = "search --via=rg", desc = "Search files by content via ripgrep" },
+
+ { on = "!", run = 'shell "$SHELL" --block', desc = "Open shell here" },
+ { on = ["c", "g"], run = "shell 'grealpath --relative-to=\"$(git rev-parse --show-toplevel)\" \"$0\" | tr -d \"\n\" | pbcopy'", desc = "Copy the file path relative from the git root" },
+
+ { on = "f", run = "filter --smart", desc = "Filter files" },
+
+ { on = "w", run = 'shell --orphan -- tmux new-window -a "$EDITOR $@; $SHELL"', desc = "$EDITOR (new-window)" },
+ { on = "W", run = "tasks:show", desc = "Show task manager" },
+
+ # Goto
+ { on = ["g", "/"], run = "cd /", desc = "Goto root" },
+ { on = ["g", "p"], run = "cd ~/.local/share/nvim/lazy", desc = "Goto nvim plugin repos" },
+ { on = ["g", "d", "d"], run = "cd ~/Downloads", desc = "Goto ~/Downloads" },
+ { on = ["g", "d", "e"], run = "cd ~/Desktop", desc = "Goto ~/Desktop" },
+ { on = ["g", "r", "r"], run = "cd ~/repos", desc = "Goto repos dir" },
+ { on = ["g", "r", "s"], run = "cd ~/scripts-tools", desc = "Goto scripts-tools" },
+ { on = ["g", "r", "f"], run = "cd ~/repos/work/fabric", desc = "Goto fabric" },
+
+ # plugins
+ { on = "l", run = "plugin fast-enter", desc = "Enter the subfolder faster, or open the file directly" },
+ { on = "<C-d>", run = "plugin nv-diff", desc = "Diff the yanked with the hovered file" },
+ { on = "F", run = "plugin smart-filter", desc = "Smart filter" },
+ # { on = "R", run = "plugin quick-grep", desc = "Ripgrep" },
+ { on = ["c", "p"], run = "plugin command", desc = "Yazi command prompt" },
+ { on = ["g", "t"], run = "plugin git-toplevel", desc = "Goto top level of git worktree" },
+ { on = ["C"], run = "plugin ouch --args=gz", desc = "Compress (gzip)" },
+ { on = ["g", "l"], run = "plugin lazygit", desc = "lazygit" },
+ { on = ["c", "m"], run = "plugin chmod", desc = "Chmod on selected files" },
+ { on = "M", run = "plugin toggle-pane max-preview", desc = "Maximize or restore the preview pane" },
+]

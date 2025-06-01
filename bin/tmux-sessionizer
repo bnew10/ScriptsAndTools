@@ -7,7 +7,7 @@ elif [[ $# -eq 2 ]]; then
     name=$2
 else
     search_dirs=(~ ~/repos ~/repos/work ~/.config)
-    selected=$(fd --unrestricted --format='{//}' --exact-depth=2 --type=d --glob '.git' "${search_dirs[@]}" | fzf --style=full --tmux=20% --delimiter='/' --with-nth=-1)
+    selected=$(fd --unrestricted --format='{//}' --exact-depth=2 --type=d --glob '.git' "${search_dirs[@]}" | fzf --margin=0,1 --style=full --delimiter='/' --with-nth=-1)
 fi
 
 if [[ -z $selected ]]; then

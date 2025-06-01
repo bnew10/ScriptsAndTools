@@ -16,7 +16,6 @@ export MANPATH=":/opt/homebrew/share/man$MANPATH"
 # PATH updates
 export PATH="$HOME/.local/bin:$PATH" # user binaries
 export PATH="$(brew --prefix git)/share/git-core/contrib/diff-highlight:$PATH" # diff-highlight
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH" # e.g., gls -> ls
 
 # zsh-autosuggestions
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#88898a'

@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+set -x
+
+systemctl stop fx-v
+
+systemctl stop fx-vif
+
+rm -f /usr/local/vif/etc/variables.json
+
+rm -f /usr/local/fxv/etc/variables.json

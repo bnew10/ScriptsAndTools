@@ -2,7 +2,7 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title New Window
+# @raycast.title Move Tab to New Window
 # @raycast.mode silent
 
 # Optional parameters:
@@ -13,8 +13,9 @@
 # @raycast.author Bradley Newton
 # @raycast.authorURL https://github.com/bnew10
 
-tell application "Safari"
-    set newWindow to make new document
-    activate
+tell application "System Events"
+  tell process "Safari"
+    click menu item "Move Tab to New Window" of menu 1 of menu bar item "Window" of menu bar 1
+  end tell
 end tell
-
+return
