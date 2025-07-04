@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Define database connection parameters
+DB_USER="baymicro"
+DB_HOST="127.0.0.1"
+DB_NAME="vcinity-accessx"
+DB_PASSWORD="B@yControl!"
+
+# Prompt user for confirmation
+echo "WARNING: This script will clean up database records. Do you want to proceed? (yes/no)"
+read CONFIRMATION
+
+if [ "$CONFIRMATION" != "yes" ]; then
+    echo "Operation canceled."
+    exit 1
+fi
+
+# Export the password to allow for connection without prompt
+export PGPASSWORD=$DB_PASSWORD
+
+# Connect to PostgreSQL and execute the necessary SQL commands
+psql -U $DB_USER -h $DB_HOST -d $DB_NAME <<EOF
+-- Retrieve all jobids and jobprogressids from taskprogress
+DO \$\$
+DECLARE
+    v_jobid BIGINT;
+    v_jobprogressid BIGINT;
+BEGIN
+    -- Loop through each jobid and jobprogressid in taskprogress
+    FOR v_jobid, v_jobprogressid IN
+        SELECT DISTINCT jobid, jobprogressid FROM taskprogress
+    LOOP
+        -- Output the jobprogressid to see what is being processed
+        RAISE NOTICE 'Processing jobprogressid: %', v_jobprogressid;
+
+        -- Delete taskprogress records for this jobid
+        DELETE FROM taskprogress WHERE jobid = v_jobid;
+
+        -- Delete jobprogress records for the same jobid
+        DELETE FROM jobprogress WHERE jobid = v_jobid;
+    END LOOP;
+END \$\$;
+
+EOF
+
+# Unset the password to avoid it being visible
+unset PGPASSWORD
+
+echo "Cleanup complete"

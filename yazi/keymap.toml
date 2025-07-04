@@ -20,6 +20,7 @@ prepend_keymap = [
  # Goto
  { on = ["g", "/"], run = "cd /", desc = "Goto root" },
  { on = ["g", "p"], run = "cd ~/.local/share/nvim/lazy", desc = "Goto nvim plugin repos" },
+ { on = ["g", "n"], run = 'shell --block -- "$EDITOR"', desc = "Open nvim in cwd" },
  { on = ["g", "d", "d"], run = "cd ~/Downloads", desc = "Goto ~/Downloads" },
  { on = ["g", "d", "e"], run = "cd ~/Desktop", desc = "Goto ~/Desktop" },
  { on = ["g", "r", "r"], run = "cd ~/repos", desc = "Goto repos dir" },

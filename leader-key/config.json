@@ -39,6 +39,12 @@
           "label" : "Toggle caffeinate",
           "type" : "url",
           "value" : "raycast://extensions/mooxl/coffee/caffeinateToggle"
+        },
+        {
+          "key" : "s",
+          "label" : "Snippets",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/snippets/search-snippets"
         }
       ],
       "iconPath" : "sparkles",

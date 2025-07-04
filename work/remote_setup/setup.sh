@@ -21,7 +21,7 @@ for remote in "$@"; do
 
   # local path to remote path mapping
   declare -A src_to_dst=(
-    ["./cleanup+installation"]="/tmp"
+    ["./cleanup+installation"]="/var/local/tmp"
     ["./aliases"]="/root/.aliases"
     ["./inputrc"]="/root/.inputrc"
     ["./tmux.conf"]="/root/.tmux.conf"
@@ -42,7 +42,7 @@ for remote in "$@"; do
   lines=("$src_aliases" "$config_bin" "$tmux_esc")
   bashrc="/root/.bashrc"
   symlink="/root/cleanup+installation"
-  realpath="/tmp/cleanup+installation"
+  realpath="/var/local/tmp/cleanup+installation"
   cmds=$(
     cat <<-CMD
     # if remote's .bashrc doesn't contain config lines, append them

@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
+if [[ -n $1 ]]; then
+  sleep "$1"
+fi
+
 curl -d "Finished" "ntfy.sh/$HOSTNAME"
