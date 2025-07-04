@@ -2,7 +2,6 @@
 
 format = """
 ${custom.osc133}\
-$username\
 $hostname\
 $directory\
 $git_branch\
@@ -12,6 +11,9 @@ $jobs\
 $line_break\
 ${env_var.yazi_level}\
 $character"""
+
+[hostname]
+format = "[$hostname]($style) "
 
 [directory]
 style = "blue"
