@@ -18,7 +18,7 @@ gui:
   showBottomLine: true
   theme:
     selectedLineBgColor:
-      - blue
+      - "#323847"
 customCommands:
   - key: "C"
     context: "files"
