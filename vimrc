@@ -46,6 +46,7 @@ endif
 
 colo desert
 highlight LineNr ctermfg=grey
+highlight CursorLine ctermbg=darkgrey
 highlight CursorLineNr ctermfg=grey
 
 " Show line numbers
