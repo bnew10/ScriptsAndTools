@@ -73,7 +73,7 @@ services:
       - PGID=1000
       - TZ=America/Los_Angeles
     volumes:
-      - /mnt/Seagate/overseerr-config:/config
+      - /mnt/Seagate/overseerr-config:/app/config
     ports:
       - 5055:5055
     restart: unless-stopped
