@@ -4,7 +4,8 @@ services:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
     env_file: .env
-    # environment:
+    environment:
+      - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
     #   - JELLYFIN_PublishedServerUrl=http://192.168.0.5
     volumes:
       - /mnt/Seagate/jellyfin-config:/config
