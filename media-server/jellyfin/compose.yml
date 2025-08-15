@@ -8,7 +8,7 @@ services:
       - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
     #   - JELLYFIN_PublishedServerUrl=http://192.168.0.5
     volumes:
-      - /mnt/Seagate/jellyfin-config:/config
+      - $HOME/.media_server/jellyfin-config:/config
       - /mnt/Seagate/data/media/tv:/data/tv
       - /mnt/Seagate/data/media/movies:/data/movies
     ports:
@@ -25,8 +25,8 @@ services:
     container_name: sabnzbd
     env_file: .env
     volumes:
-      - /mnt/Seagate/sabnzbd-config:/config
-      - /home/bnew10/downloads/sabnzbd:/data/sabnzbd
+      - $HOME/.media_server/sabnzbd-config:/config
+      - $HOME/downloads/sabnzbd:/data/sabnzbd
     ports:
       - 8080:8080
     restart: unless-stopped
@@ -37,9 +37,9 @@ services:
     container_name: radarr
     env_file: .env
     volumes:
-      - /mnt/Seagate/radarr-config:/config
+      - $HOME/.media_server/radarr-config:/config
       - /mnt/Seagate/data/media:/data/media
-      - /home/bnew10/downloads/sabnzbd:/data/sabnzbd
+      - $HOME/downloads/sabnzbd:/data/sabnzbd
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -50,20 +50,9 @@ services:
     container_name: sonarr
     env_file: .env
     volumes:
-      - /mnt/Seagate/sonarr-config:/config
+      - $HOME/.media_server/sonarr-config:/config
       - /mnt/Seagate/data/media:/data/media
-      - /home/bnew10/downloads/sabnzbd:/data/sabnzbd
+      - $HOME/downloads/sabnzbd:/data/sabnzbd
     ports:
       - 8989:8989
     restart: unless-stopped
-
-  # localhost:5055
-  # overseerr:
-  #   image: sctx/overseerr:latest
-  #   container_name: overseerr
-  #   env_file: .env
-  #   volumes:
-  #     - /mnt/Seagate/overseerr-config:/app/config
-  #   ports:
-  #     - 5055:5055
-  #   restart: unless-stopped
