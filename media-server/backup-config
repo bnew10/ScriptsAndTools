@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+DRIVE=/mnt/Seagate
+LOCAL_CONFIG=$HOME/.media_server
+LOG=$LOCAL_CONFIG/last_backup.log
+
+date &>"$LOG"
+mountpoint $DRIVE 2>>"$LOG" >/dev/null && rsync -a --info=name --delete "$LOCAL_CONFIG/" $DRIVE/config/ &>>"$LOG"
