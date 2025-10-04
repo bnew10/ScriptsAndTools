@@ -21,6 +21,7 @@ prepend_fetchers = [
 ]
 
 prepend_previewers = [
+  { name = "*.md", run = "mdcat" },
   # Archive previewer
   { mime = "application/*zip", run = "ouch" },
   { mime = "application/x-tar", run = "ouch" },

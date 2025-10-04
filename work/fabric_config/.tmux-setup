@@ -4,6 +4,6 @@ tmux-windowizer 'lazygit'
 
 tmux-windowizer 'build'
 
-tmux-windowizer 'xfer' hsplit
+tmux-windowizer 'xfer'
 
 tmux-windowizer 'ssh-tunnel'

@@ -1,17 +1,17 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "63f9650"
+rev = "de53d90"
 hash = "3996fc74044bc44144b323686f887e1"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:no-status"
-rev = "63f9650"
+rev = "de53d90"
 hash = "3e023d31f29201efdac2a6ae35fedb78"
 
 [[plugin.deps]]
 use = "ndtoan96/ouch"
-rev = "10b4627"
-hash = "3ec6a973d506665f1570a9fe08343fd8"
+rev = "0742fff"
+hash = "2bd799b42b8e42b8ef100310be71f8d1"
 
 [[plugin.deps]]
 use = "Lil-Dank/lazygit"
@@ -20,28 +20,33 @@ hash = "a1fa2b3e1826c3a34804ea8c548e9f80"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "63f9650"
-hash = "d0ad0c1946b46a30c8489735fe8de41c"
+rev = "de53d90"
+hash = "1adc12c2b2b025411ab61eb8f0879574"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "63f9650"
-hash = "bf6f074cd41ee33c3360341d168f9733"
+rev = "de53d90"
+hash = "63b6c222bf2103b3023389dde5e2ecfe"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:toggle-pane"
-rev = "63f9650"
-hash = "d5d4f3527592da5fbe77fd6f51815f80"
+rev = "de53d90"
+hash = "d6f60c24d8c0cf57a855bf46115b2502"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-filter"
-rev = "63f9650"
-hash = "4d82cd9e7534d976f000edf9c0f68d8f"
+rev = "de53d90"
+hash = "e56b7abf3c06e8ce496eadcca168c093"
 
 [[plugin.deps]]
 use = "ourongxing/fast-enter"
 rev = "738356f"
 hash = "b209b5db91df69bdc6a4656cb8276cd9"
+
+[[plugin.deps]]
+use = "GrzegorzKozub/mdcat"
+rev = "7b7380a"
+hash = "40c20e6c1085d1f45309b9f148bf4f6e"
 
 [flavor]
 deps = []

@@ -19,7 +19,6 @@ done
 if [[ -n $brew_cmd ]]; then
   # set important homebrew params like $HOMEBREW_PREFIX
   eval "$($brew_cmd shellenv)"
-  FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:${FPATH}"
   autoload -Uz compinit
   compinit
 fi
@@ -36,7 +35,9 @@ for src in "${source_files[@]}"; do
 done
 
 # zsh-autosuggestions
-source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [[ -n $HOMEBREW_PREFIX ]]; then
+  source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
 
 # Options
 setopt CORRECT

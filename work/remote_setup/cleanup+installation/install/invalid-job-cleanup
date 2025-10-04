@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+DB_USER="baymicro"
+DB_HOST="localhost"
+DB_NAME="vcinity-accessx"
+DB_PASSWORD="B@yControl!"
+
+DRY_RUN=false
+if [ "$1" = "--dry-run" ]; then
+    DRY_RUN=true
+    echo "DRY RUN"
+fi
+
+export PGPASSWORD=$DB_PASSWORD
+
+psql -q -U $DB_USER -h $DB_HOST -d $DB_NAME <<EOF 2>&1 | sed -E 's/NOTICE: *//g'
+DO \$\$
+DECLARE
+    v_jobprogressid BIGINT;
+BEGIN
+    FOR v_jobprogressid IN
+        SELECT id FROM jobprogress WHERE status = 'analyze'
+    LOOP
+        RAISE NOTICE 'Processing jobprogressid: %', v_jobprogressid;
+
+        IF NOT $DRY_RUN THEN
+          DELETE FROM taskprogress WHERE jobprogressid = v_jobprogressid;
+          DELETE FROM jobprogress WHERE id = v_jobprogressid;
+          RAISE NOTICE 'Deleted %', v_jobprogressid;
+        END IF;
+    END LOOP;
+END \$\$;
+EOF
+
+unset PGPASSWORD

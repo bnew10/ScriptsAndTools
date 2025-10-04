@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+if [ $# -lt 2 ]; then
+  echo "Usage: $0 <destination> <ultx-service>"
+  echo "Example: $0 65 accessx-agent"
+  echo -e "\nNote: Must be at the root of fabric"
+  exit 1
+fi
+
+declare -A jar_src_map=(
+  ["accessx-manager"]="./accessx/accessx-frontend/target/accessx-manager.jar"
+  ["accessx-agent"]="./accessx/accessx-agent/target/accessx-agent.jar"
+  ["commandx-manager"]="./commandx/commandx-frontend/target/commandx-manager.jar"
+)
+
+declare -A jar_dst_map=(
+  ["accessx-manager"]="/usr/share/vcinity/accessx/manager"
+  ["accessx-agent"]="/usr/share/vcinity/accessx/agent"
+  ["commandx-manager"]="/usr/share/vcinity/commandx/manager"
+)
+
+dst_num="$1"
+shift
+jar_names=("$@")
+
+declare -A services
+for jar_name in "${jar_names[@]}"; do
+  src_path="${jar_src_map[$jar_name]}"
+  dst_path="${jar_dst_map[$jar_name]}"
+  scp -O "$src_path" "${dst_num}:${dst_path}"
+  [[ $jar_name =~ "agent" ]] && services["agents"]=1 || services["$jar_name"]=1
+done
+
+commands=()
+for service in "${!services[@]}"; do
+  commands+=("ultx restart $service &&")
+done
+
+ssh "$dst_num" "${commands[*]} ntfy 20"
