@@ -1,11 +1,11 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "de53d90"
+rev = "d1c8baa"
 hash = "3996fc74044bc44144b323686f887e1"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:no-status"
-rev = "de53d90"
+rev = "d1c8baa"
 hash = "3e023d31f29201efdac2a6ae35fedb78"
 
 [[plugin.deps]]
@@ -15,28 +15,28 @@ hash = "2bd799b42b8e42b8ef100310be71f8d1"
 
 [[plugin.deps]]
 use = "Lil-Dank/lazygit"
-rev = "7a08a09"
-hash = "a1fa2b3e1826c3a34804ea8c548e9f80"
+rev = "8f37dc5"
+hash = "ee71543790f0ce3951161045a3787abd"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "de53d90"
-hash = "1adc12c2b2b025411ab61eb8f0879574"
+rev = "d1c8baa"
+hash = "8ad3e90b079190b4905f24a44f4ca06b"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "de53d90"
+rev = "d1c8baa"
 hash = "63b6c222bf2103b3023389dde5e2ecfe"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:toggle-pane"
-rev = "de53d90"
-hash = "d6f60c24d8c0cf57a855bf46115b2502"
+rev = "d1c8baa"
+hash = "8a7c58225816a163a6e8730c0adafbc8"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-filter"
-rev = "de53d90"
-hash = "e56b7abf3c06e8ce496eadcca168c093"
+rev = "d1c8baa"
+hash = "bcda8eeb3f4013bae156aecabfc745e8"
 
 [[plugin.deps]]
 use = "ourongxing/fast-enter"
@@ -47,6 +47,11 @@ hash = "b209b5db91df69bdc6a4656cb8276cd9"
 use = "GrzegorzKozub/mdcat"
 rev = "7b7380a"
 hash = "40c20e6c1085d1f45309b9f148bf4f6e"
+
+[[plugin.deps]]
+use = "AnirudhG07/plugins-yazi:copy-file-contents"
+rev = "71545f4"
+hash = "f8530ee84fee95dbcc26bb1d8d8019c7"
 
 [flavor]
 deps = []
