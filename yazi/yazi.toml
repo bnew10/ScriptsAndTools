@@ -2,6 +2,7 @@
 
 [mgr]
 show_hidden = true
+sort_by = "mtime"
 
 [opener]
 edit = [
