@@ -43,6 +43,8 @@ for remote in "$@"; do
   bashrc="/root/.bashrc"
   symlink="/root/cleanup+installation"
   realpath="/var/local/tmp/cleanup+installation"
+  port=4444
+  proxy="http://localhost:${port}"
   cmds=$(
     cat <<-CMD
     # if remote's .bashrc doesn't contain config lines, append them
@@ -58,20 +60,32 @@ for remote in "$@"; do
       echo -e "=== Creating symlink to $yellow$realpath$nc in home directory"
       ln -s "$realpath" "$symlink"
     fi
+    
+    # vim setup
+    echo "=== Installing vim plugins"
+    export http_proxy="${proxy}"
+    export https_proxy="${proxy}"
+    vim "+PlugInstall --sync" +qa
 
-    # upgrade tmux
+    # tmux setup
     echo "=== Upgrading tmux"
     source /etc/os-release
     version="\$(cut -f 5 -d ':' <<<"\$CPE_NAME")"
     echo "Installing tmux for RHEL \$version"
-    if yum -y install "http://galaxy4.net/repo/galaxy4-release-\${version}-current.noarch.rpm"; then
-      yum -y install tmux
-    else
-      echo -e "${red}Error${nc}: Failed to set up repo for tmux"
+    if ! dnf -y install "http://galaxy4.net/repo/galaxy4-release-\${version}-current.noarch.rpm"; then
+      echo -e "${red}Error${nc}: Failed to set up tmux repo"
+      exit 0
+    fi
+    
+    if ! dnf -y install tmux; then
+      echo -e "${red}Error${nc}: Failed to install tmux"
+      exit 0
     fi
 CMD
   )
 
-  # shellcheck disable=SC2029 # want vars to expand client side
-  ssh "$remote" "$cmds"
+  tinyproxy 2>&1 | sed 's/^/[tinyproxy] /'
+  ssh -R $port:localhost:8888 -t "$remote" "$cmds"
+  kill -9 $(pgrep tinyproxy)
+  echo "[tinyproxy] Shutdown successful"
 done
