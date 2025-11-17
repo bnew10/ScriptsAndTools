@@ -8,7 +8,7 @@ services:
   #     - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
   #   #   - JELLYFIN_PublishedServerUrl=http://192.168.0.5
   #   volumes:
-  #     - ${HOME}/.media_server/jellyfin-config:/config
+  #     - ${home}/.media_server/jellyfin-config:/config
   #     - /mnt/Seagate/data/media/tv:/data/tv
   #     - /mnt/Seagate/data/media/movies:/data/movies
   #   ports:
@@ -26,10 +26,10 @@ services:
     env_file: stack.env
     volumes:
       - type: bind
-        source: ${HOME}/.config/sabnzbd
+        source: ${home}/.config/sabnzbd
         target: /config
       - type: bind
-        source: ${HOME}/downloads/sabnzbd
+        source: ${home}/downloads/sabnzbd
         target: /data/sabnzbd
     ports:
       - 8080:8080
@@ -42,10 +42,10 @@ services:
     env_file: stack.env
     volumes:
       - type: bind
-        source: ${HOME}/.config/radarr
+        source: ${home}/.config/radarr
         target: /config
       - type: bind
-        source: ${HOME}/downloads/sabnzbd
+        source: ${home}/downloads/sabnzbd
         target: /data/sabnzbd
       - /mnt/media/data/media:/data/media
     ports:
@@ -59,10 +59,10 @@ services:
     env_file: stack.env
     volumes:
       - type: bind
-        source: ${HOME}/.config/sonarr
+        source: ${home}/.config/sonarr
         target: /config
       - type: bind
-        source: ${HOME}/downloads/sabnzbd
+        source: ${home}/downloads/sabnzbd
         target: /data/sabnzbd
       - /mnt/media/data/media:/data/media
     ports:
