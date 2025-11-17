@@ -25,8 +25,12 @@ services:
     container_name: sabnzbd
     env_file: stack.env
     volumes:
-      - ${HOME}/.config/sabnzbd:/config
-      - ${HOME}/downloads/sabnzbd:/data/sabnzbd
+      - type: bind
+        source: ${HOME}/.config/sabnzbd
+        target: /config
+      - type: bind
+        source: ${HOME}/downloads/sabnzbd
+        target: /data/sabnzbd
     ports:
       - 8080:8080
     restart: unless-stopped
@@ -37,9 +41,13 @@ services:
     container_name: radarr
     env_file: stack.env
     volumes:
-      - ${HOME}/.config/radarr:/config
+      - type: bind
+        source: ${HOME}/.config/radarr
+        target: /config
+      - type: bind
+        source: ${HOME}/downloads/sabnzbd
+        target: /data/sabnzbd
       - /mnt/media/data/media:/data/media
-      - ${HOME}/downloads/sabnzbd:/data/sabnzbd
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -50,9 +58,13 @@ services:
     container_name: sonarr
     env_file: stack.env
     volumes:
-      - ${HOME}/.config/sonarr:/config
+      - type: bind
+        source: ${HOME}/.config/sonarr
+        target: /config
+      - type: bind
+        source: ${HOME}/downloads/sabnzbd
+        target: /data/sabnzbd
       - /mnt/media/data/media:/data/media
-      - ${HOME}/downloads/sabnzbd:/data/sabnzbd
     ports:
       - 8989:8989
     restart: unless-stopped
