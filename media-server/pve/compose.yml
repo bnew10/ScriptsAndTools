@@ -3,7 +3,7 @@ services:
   # jellyfin:
   #   image: lscr.io/linuxserver/jellyfin:latest
   #   container_name: jellyfin
-  #   env_file: .env
+  #   env_file: stack.env
   #   environment:
   #     - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
   #   #   - JELLYFIN_PublishedServerUrl=http://192.168.0.5
@@ -23,7 +23,7 @@ services:
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
-    env_file: .env
+    env_file: stack.env
     volumes:
       - $HOME/.config/sabnzbd:/config
       - $HOME/downloads/sabnzbd:/data/sabnzbd
@@ -35,7 +35,7 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
-    env_file: .env
+    env_file: stack.env
     volumes:
       - $HOME/.config/radarr:/config
       - /mnt/media/data/media:/data/media
@@ -48,7 +48,7 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
-    env_file: .env
+    env_file: stack.env
     volumes:
       - $HOME/.config/sonarr:/config
       - /mnt/media/data/media:/data/media
