@@ -24,6 +24,8 @@ services:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
     env_file: stack.env
+    environment:
+      home: ${home}
     volumes:
       - type: bind
         source: ${home}/.config/sabnzbd
@@ -40,6 +42,8 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     env_file: stack.env
+    environment:
+      home: ${home}
     volumes:
       - type: bind
         source: ${home}/.config/radarr
@@ -57,6 +61,8 @@ services:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
     env_file: stack.env
+    environment:
+      home: ${home}
     volumes:
       - type: bind
         source: ${home}/.config/sonarr
