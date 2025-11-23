@@ -1,36 +1,12 @@
 services:
-  # localhost:8096
-  # jellyfin:
-  #   image: lscr.io/linuxserver/jellyfin:latest
-  #   container_name: jellyfin
-  #   env_file: stack.env
-  #   environment:
-  #     - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
-  #   #   - JELLYFIN_PublishedServerUrl=http://192.168.0.5
-  #   volumes:
-  #     - ${HOME}/.media_server/jellyfin-config:/config
-  #     - /mnt/Seagate/data/media/tv:/data/tv
-  #     - /mnt/Seagate/data/media/movies:/data/movies
-  #   ports:
-  #     - 8096:8096 # http webUI
-  #     - 7359:7359/udp # Allows clients to discover Jellyfin on the local network
-  #     - 1900:1900/udp # Service discovery used by DNLA and clients
-  #   devices:
-  #     - /dev/dri:/dev/dri
-  #   restart: unless-stopped
-
   # localhost:8080
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
     env_file: stack.env
     volumes:
-      - type: bind
-        source: ${HOME}/.config/sabnzbd
-        target: /config
-      - type: bind
-        source: ${HOME}/downloads/sabnzbd
-        target: /data/sabnzbd
+      - $HOME/.config/sabnzbd:/config
+      - $HOME/downloads/sabnzbd:/data/sabnzbd
     ports:
       - 8080:8080
     restart: unless-stopped
@@ -41,12 +17,8 @@ services:
     container_name: radarr
     env_file: stack.env
     volumes:
-      - type: bind
-        source: ${HOME}/.config/radarr
-        target: /config
-      - type: bind
-        source: ${HOME}/downloads/sabnzbd
-        target: /data/sabnzbd
+      - $HOME/.config/radarr:/config
+      - $HOME/downloads/sabnzbd:/data/sabnzbd
       - /mnt/media/data/media:/data/media
     ports:
       - 7878:7878
@@ -58,12 +30,8 @@ services:
     container_name: sonarr
     env_file: stack.env
     volumes:
-      - type: bind
-        source: ${HOME}/.config/sonarr
-        target: /config
-      - type: bind
-        source: ${HOME}/downloads/sabnzbd
-        target: /data/sabnzbd
+      - $HOME/.config/sonarr:/config
+      - $HOME/downloads/sabnzbd:/data/sabnzbd
       - /mnt/media/data/media:/data/media
     ports:
       - 8989:8989
