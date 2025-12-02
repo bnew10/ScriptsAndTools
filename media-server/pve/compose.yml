@@ -36,3 +36,15 @@ services:
     ports:
       - 8989:8989
     restart: unless-stopped
+
+  # localhost:6767
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    env_file: stack.env
+    volumes:
+      - $HOME/.config/bazarr:/config
+      - /mnt/media/data/media:/data/media
+    ports:
+      - 6767:6767
+    restart: unless-stopped
