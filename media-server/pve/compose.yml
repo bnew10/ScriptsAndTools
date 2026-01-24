@@ -48,3 +48,20 @@ services:
     ports:
       - 6767:6767
     restart: unless-stopped
+
+  newt:
+    image: fosrl/newt
+    container_name: newt
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    env_file: stack.env
+    environment:
+      - CONFIG_FILE=/run/secrets/newt-config
+      - DOCKER_SOCKET=unix:///var/run/docker.sock
+    secrets:
+      - newt-config
+
+secrets:
+  newt-config:
+    file: /portainer/newt-config.secret
