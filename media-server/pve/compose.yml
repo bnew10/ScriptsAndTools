@@ -49,6 +49,16 @@ services:
       - 6767:6767
     restart: unless-stopped
 
+  profilarr:
+    image: santiagosayshey/profilarr:latest
+    container_name: profilarr
+    env_file: stack.env
+    volumes:
+      - $HOME/.config/profilarr:/config
+    ports:
+      - 6868:6868
+    restart: unless-stopped
+
   newt:
     image: fosrl/newt
     container_name: newt
