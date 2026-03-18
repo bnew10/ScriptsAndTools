@@ -7,9 +7,9 @@ os:
   editAtLine: "nvim +{{line}} {{filename}}"
   editAtLineAndWait: "nvim +{{line}} {{filename}}"
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
   localBranchSortOrder: recency
 gui:
   skipDiscardChangeWarning: true
@@ -35,3 +35,13 @@ customCommands:
     context: "commitFiles"
     command: "yazi {{.SelectedCommitFile.Name}}"
     output: terminal
+keybinding:
+  universal:
+    nextScreenMode: K
+    prevScreenMode: J
+    scrollUpMain: <c-u>
+    scrollDownMain: <c-d>
+    scrollUpMain-alt1: <disabled>
+    scrollDownMain-alt1: <disabled>
+    scrollUpMain-alt2: <disabled>
+    scrollDownMain-alt2: <disabled>
