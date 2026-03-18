@@ -61,34 +61,10 @@
           "value" : "rectangle://execute-action?name=center-prominently"
         },
         {
-          "key" : "m",
-          "label" : "Maximize",
+          "key" : "f",
+          "label" : "Fullscreen",
           "type" : "url",
           "value" : "rectangle://execute-action?name=maximize"
-        },
-        {
-          "key" : "h",
-          "label" : "Left half",
-          "type" : "url",
-          "value" : "rectangle://execute-action?name=left-half"
-        },
-        {
-          "key" : "H",
-          "label" : "Previous display",
-          "type" : "url",
-          "value" : "rectangle://execute-action?name=previous-display"
-        },
-        {
-          "key" : "l",
-          "label" : "Right half",
-          "type" : "url",
-          "value" : "rectangle://execute-action?name=right-half"
-        },
-        {
-          "key" : "L",
-          "label" : "Next display",
-          "type" : "url",
-          "value" : "rectangle://execute-action?name=next-display"
         },
         {
           "key" : "r",
@@ -107,6 +83,63 @@
           "label" : "Center three-fourths",
           "type" : "url",
           "value" : "raycast://extensions/raycast/window-management/center-three-fourths"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "l",
+              "label" : "Next display",
+              "type" : "url",
+              "value" : "rectangle://execute-action?name=next-display"
+            },
+            {
+              "key" : "h",
+              "label" : "Previous display",
+              "type" : "url",
+              "value" : "rectangle://execute-action?name=previous-display"
+            }
+          ],
+          "key" : "m",
+          "label" : "Move...",
+          "type" : "group"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "L",
+              "label" : "Half",
+              "type" : "url",
+              "value" : "rectangle://execute-action?name=right-half"
+            },
+            {
+              "key" : "l",
+              "label" : "Last three fourths",
+              "type" : "url",
+              "value" : "rectangle://execute-action?name=last-three-fourths"
+            }
+          ],
+          "key" : "l",
+          "label" : "Right...",
+          "type" : "group"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "H",
+              "label" : "Half",
+              "type" : "url",
+              "value" : "rectangle://execute-action?name=left-half"
+            },
+            {
+              "key" : "h",
+              "label" : "First three fourths",
+              "type" : "url",
+              "value" : "rectangle://execute-action?name=first-three-fourths"
+            }
+          ],
+          "key" : "h",
+          "label" : "Left...",
+          "type" : "group"
         }
       ],
       "iconPath" : "appwindow.swipe.rectangle",
@@ -133,11 +166,31 @@
           "label" : "Only tab in new window",
           "type" : "url",
           "value" : "raycast://script-commands/safari-move-tab-to-new-window"
+        },
+        {
+          "iconPath" : "link",
+          "key" : "b",
+          "label" : "Bookmarks",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/browser-bookmarks/index"
         }
       ],
       "iconPath" : "safari.fill",
       "key" : "s",
       "label" : "Safari",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "l",
+          "label" : "Latest builds",
+          "type" : "url",
+          "value" : "raycast://script-commands/latest-build"
+        }
+      ],
+      "key" : "q",
+      "label" : "Quick",
       "type" : "group"
     }
   ],
