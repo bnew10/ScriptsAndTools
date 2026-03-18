@@ -13,18 +13,18 @@
 
 # Documentation:
 # @raycast.description Opens vim in new tmux pane with provided file and line number.
-# @raycast.author bnew10 
+# @raycast.author Bradley Newton
 # @raycast.authorURL https://github.com/bnew10
 
 FILE="$1"
 LINE_NUM="$2"
 
 # returns the current active pane (e.g., main:2.1)
-get-pane () {
+get-pane() {
   tmux display-message -p '#{session_name}:#{window_index}.#{pane_index}'
 }
 # returns the current active window (e.g., main:2)
-get-window () {
+get-window() {
   tmux display-message -p '#{session_name}:#{window_index}'
 }
 
@@ -44,4 +44,3 @@ else
 fi
 
 osascript -e 'tell application "iTerm" to activate'
-
