@@ -11,9 +11,44 @@ path() {
 DEBUG_STR='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'
 alias jds="tee >(tr -d '\n' | pbcopy) <<< $DEBUG_STR"
 
+## maven format
+alias mf='mvn com.coveo:fmt-maven-plugin:format'
+
 ## homebrew
-alias bud="brew update && echo '\n' && brew outdated --greedy"
+# alias bud="brew update && echo '\n' && brew outdated --greedy"
+bud() {
+  brew update
+
+  local json
+  json=$(brew outdated --greedy --json)
+  local formulae
+  formulae=$(echo "$json" | jq -r '.formulae[] | .name + "|" + (.installed_versions | join(", ")) + "|" + .current_version')
+  local casks
+  casks=$(echo "$json" | jq -r '.casks[] | .name + "|" + (.installed_versions | join(", ")) + "|" + .current_version')
+  local output
+  output=''
+
+  if [[ -n $formulae ]]; then
+    output+='\n\e[4mFormulae\e[24m\n'
+    while IFS=$'\n' read -r formula; do
+      IFS='|' read -r name installed_versions current_version <<<"$formula"
+      output+="$name ($installed_versions) < $current_version\n"
+    done <<<"$formulae"
+  fi
+
+  if [[ -n $casks ]]; then
+    output+='\n\e[4mCasks\e[24m\n'
+    while IFS=$'\n' read -r cask; do
+      IFS='|' read -r name installed_versions current_version <<<"$cask"
+      output+="$name ($installed_versions) < $current_version\n"
+    done <<<"$casks"
+  fi
+
+  echo -n "$output"
+}
 alias bug="brew upgrade --greedy"
+alias bugf="brew upgrade --formula"
+alias bugc="brew upgrade --cask --greedy"
 
 ## github copilot cli
 alias ghcs="gh copilot suggest"
@@ -34,7 +69,20 @@ alias gsh='git show --first-parent'
 
 # copy file paths of listed files in git show
 gshc() {
-  git show --first-parent --name-only --oneline $1 | awk 'NR>1' | gcp
+  git show --first-parent --name-only --pretty=format: "$@" | gcp
+}
+
+# checkout files from given MRs into current branch
+# args: <from_branch> <gitlab MR ref 1> <gitlab MR ref 2> ...
+gcmf() {
+  local from="$1"
+  shift
+
+  readarray -t commit_args < <(git log --format='%h' "${@/*/--grep=&}" "$from")
+
+  readarray -t path_args < <(git show --first-parent --name-only --pretty=format: "${commit_args[@]}" | sort -u | sed '/^[[:space:]]*$/d')
+
+  git checkout "$from" "${path_args[@]}"
 }
 
 alias gst='git-st'
@@ -82,6 +130,18 @@ is-active() {
   ultx is-active | awk '{if ($0 ~ /active/) {print "\033[0;32m" $0 "\033[0m"} else if ($0 ~ /failed/) {print "\033[0;31m" $0 "\033[0m"} else {print $0}}'
 }
 
+ug() {
+  local tarball
+  if [[ "$1" =~ ^http ]]; then
+    wget "$1" || return $?
+    tarball="$(awk -F '/' '{print $NF}' <<<"$1")"
+  else
+    tarball="$1"
+  fi
+
+  /usr/share/vcinity/configuration/bin/ultx_upgrade.sh -d "$tarball"
+}
+
 ## lazygit
 gl() {
   export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
@@ -97,12 +157,20 @@ gl() {
 ## man
 man() {
   if [[ -n $TMUX ]]; then
+    local man_path
+    man_path=$(command man -w "$@")
+    local pane_id
+    pane_id=$(tmux display -p '#{s/%%//:pane_id}')
+    tmux set-environment "CURRENT_MAN_${pane_id}" "$man_path"
+
     local win_id
     win_id="$(tmux display -p '#{window_id}')"
 
     tmux rename-window -t ":$win_id" "man $*"
     command man "$@"
     tmux set-option -wt ":$win_id" automatic-rename on
+
+    tmux set-environment -u "CURRENT_MAN_${pane_id}"
   else
     command man "$@"
   fi
@@ -129,3 +197,9 @@ completed() {
     printf "\033]9;Completed\007"
   fi
 }
+
+alias as='atuin scripts'
+alias asr='atuin scripts run'
+
+# delta-diff
+[[ -f "$HOME/scripts-tools/bin/delta-diff" ]] && source "$HOME/scripts-tools/bin/delta-diff"

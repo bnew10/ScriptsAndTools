@@ -4,6 +4,7 @@ export EDITOR='nv'
 export LESS='iR'
 export PAGER='less --file-size'
 export XDG_CONFIG_HOME="$HOME/.config"
+export LS_COLORS="$(vivid generate tokyonight-storm)"
 
 # tms
 export TMS_CONFIG_FILE="$XDG_CONFIG_HOME/tms/config.toml"
@@ -14,7 +15,7 @@ export MANPAGER='less -cs --file-size'
 export MANPATH=":/opt/homebrew/share/man$MANPATH"
 
 # PATH updates
-export PATH="$HOME/.local/bin:$PATH" # user binaries
+export PATH="$HOME/.local/bin:$PATH"                                           # user binaries
 export PATH="$(brew --prefix git)/share/git-core/contrib/diff-highlight:$PATH" # diff-highlight
 
 # zsh-autosuggestions

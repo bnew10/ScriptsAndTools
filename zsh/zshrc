@@ -45,3 +45,10 @@ setopt CORRECT_ALL
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
+eval "$(atuin init zsh --disable-up-arrow)"
+
+source /opt/homebrew/share/google-cloud-sdk/completion.zsh.inc
+source /opt/homebrew/share/google-cloud-sdk/path.zsh.inc
+
+# fzf keybindings; enables CTRL_T, disables CTRL_R,ALT_C
+FZF_CTRL_R_COMMAND= FZF_ALT_C_COMMAND= source <(fzf --zsh)
