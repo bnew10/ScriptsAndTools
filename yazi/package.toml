@@ -1,47 +1,47 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "9a52857"
+rev = "de33976"
 hash = "3996fc74044bc44144b323686f887e1"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:no-status"
-rev = "9a52857"
+rev = "de33976"
 hash = "3e023d31f29201efdac2a6ae35fedb78"
 
 [[plugin.deps]]
 use = "ndtoan96/ouch"
-rev = "0742fff"
-hash = "2bd799b42b8e42b8ef100310be71f8d1"
+rev = "594b8a2"
+hash = "c9e628fc0312d198db22ae2fa74883b"
 
 [[plugin.deps]]
 use = "Lil-Dank/lazygit"
-rev = "8f37dc5"
-hash = "ee71543790f0ce3951161045a3787abd"
+rev = "0e56060"
+hash = "ab2e66065a94cca4886b303518e44bd8"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "9a52857"
-hash = "8ad3e90b079190b4905f24a44f4ca06b"
+rev = "de33976"
+hash = "8da0b15a97b5dfd13941d1ecc617ac7c"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "9a52857"
-hash = "63b6c222bf2103b3023389dde5e2ecfe"
+rev = "de33976"
+hash = "36a484acf6a0a0219c543ccb4cee218f"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:toggle-pane"
-rev = "9a52857"
+rev = "de33976"
 hash = "8a7c58225816a163a6e8730c0adafbc8"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-filter"
-rev = "9a52857"
-hash = "bcda8eeb3f4013bae156aecabfc745e8"
+rev = "de33976"
+hash = "407d19bc4fb46eff5fa8ff8337644847"
 
 [[plugin.deps]]
 use = "ourongxing/fast-enter"
-rev = "738356f"
-hash = "b209b5db91df69bdc6a4656cb8276cd9"
+rev = "9fe77d8"
+hash = "7ac02a3fa73cd734ddf4ac85af4c0507"
 
 [[plugin.deps]]
 use = "GrzegorzKozub/mdcat"
