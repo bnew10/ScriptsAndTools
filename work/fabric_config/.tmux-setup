@@ -1,9 +1,10 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
-tmux-windowizer 'lazygit'
+export TMUX_SESSION
+TMUX_SESSION=$(tmux display-message -p "#S")
 
-tmux-windowizer 'build'
+windows=('lazygit' 'build' 'xfer' 'ssh-tunnel')
 
-tmux-windowizer 'xfer'
-
-tmux-windowizer 'ssh-tunnel'
+for window in "${windows[@]}"; do
+  tmux-windowizer "$window"
+done

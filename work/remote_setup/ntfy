@@ -4,4 +4,4 @@ if [[ -n $1 ]]; then
   sleep "$1"
 fi
 
-curl -d "Finished" "ntfy.sh/$HOSTNAME"
+ssh -p 12345 bnewton@localhost curl -d "Finished" "ntfy.sh/$HOSTNAME"

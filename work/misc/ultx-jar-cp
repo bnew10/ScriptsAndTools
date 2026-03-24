@@ -36,4 +36,5 @@ for service in "${!services[@]}"; do
   commands+=("ultx restart $service &&")
 done
 
-ssh "$dst_num" "${commands[*]} ntfy 20"
+# ssh "$dst_num" "${commands[*]} ntfy 20"
+ssh "$dst_num" "ultx restart && ntfy 20"

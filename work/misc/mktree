@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+# Reads file paths from stdin and prints a tree-like structure.
+
+# Normalize: strip leading "./" or "/" and trailing "/" ; sort & unique
+# Also strip standalone "." and ".."
+normalize() {
+  sed -E 's|^\./||; s|^/||; s|/$||; s|^\.+$||' | sort -u
+}
+
+echo "."
+normalize | awk -F'/' '
+# --- Helpers (must be top-level in awk) ---
+
+# Keep a parent -> newline-joined, unique, lexicographically sorted list of children
+function add_child(parent, child,   s,n,i,j,t,arr,found) {
+  s = children[parent]
+  n = split(s, arr, "\n")
+  found = 0
+  for (i = 1; i <= n; i++) if (arr[i] == child) { found = 1; break }
+  if (!found) {
+    arr[++n] = child
+    # simple in-place sort (n is small in practice)
+    for (i = 1; i < n; i++)
+      for (j = i+1; j <= n; j++)
+        if (arr[i] > arr[j]) { t=arr[i]; arr[i]=arr[j]; arr[j]=t }
+    s = ""
+    for (i = 1; i <= n; i++) s = s (i>1 ? "\n" : "") arr[i]
+    children[parent] = s
+  }
+}
+
+# Depth-first print
+function print_tree(prefix, node,   raw, n, i, cnt, child, connector, newprefix, tmp) {
+  n = split(children[node], raw, "\n")
+  cnt = 0
+  for (i = 1; i <= n; i++) if (raw[i] != "") tmp[++cnt] = raw[i]
+
+  for (i = 1; i <= cnt; i++) {
+    child = node "/" tmp[i]
+    connector = (i == cnt ? "└── " : "├── ")
+    print prefix connector tmp[i]
+    newprefix = prefix (i == cnt ? "    " : "│   ")
+    print_tree(newprefix, child)
+  }
+}
+
+# --- Build the tree from the input paths ---
+{
+  # For each path, add every component and link parent -> child
+  path = ""
+  for (i = 1; i <= NF; i++) {
+    path = path "/" $i
+    if (!(path in seen)) {
+      seen[path] = 1
+      parent = (i > 1 ? substr(path, 1, length(path) - length($i) - 1) : "")
+      add_child(parent, $i)
+    }
+  }
+}
+
+END {
+  # Root node is the empty string "" (we already printed ".")
+  print_tree("", "")
+}
+'

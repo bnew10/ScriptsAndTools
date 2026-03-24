@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+hostname="$1"
+jobProgressId="$2"
+
+curl -k \
+  --user admin:MDxControl! \
+  -X POST "https://${hostname}/accessx/api/external/canceljob/${jobProgressId}"

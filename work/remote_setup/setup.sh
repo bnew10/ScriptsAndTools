@@ -15,19 +15,30 @@ red="\033[31m"
 green="\033[32m"
 nc="\033[0m"
 
+user="$1"
+shift
+
+# map user to home dir
+declare -A home_dir_map=(
+  ["root"]="/root"
+  ["opsadmin"]="/home/opsadmin"
+)
+home="${home_dir_map[$user]}"
+
+# local path to remote path mapping
+declare -A src_to_dst=(
+  ["./cleanup+installation"]="/var/local/tmp"
+  ["./aliases"]="$home/.aliases"
+  ["./inputrc"]="$home/.inputrc"
+  ["./tmux.conf"]="$home/.tmux.conf"
+  ["./vimrc"]="$home/.vimrc"
+  ["./ntfy"]="/usr/local/bin/ntfy"
+  ["./tmux-3.6a-linux-x86_64.tar.gz"]="/tmp/tmux.tar.gz"
+)
+
 for remote in "$@"; do
 
   echo -e "$green$remote setup:$nc"
-
-  # local path to remote path mapping
-  declare -A src_to_dst=(
-    ["./cleanup+installation"]="/var/local/tmp"
-    ["./aliases"]="/root/.aliases"
-    ["./inputrc"]="/root/.inputrc"
-    ["./tmux.conf"]="/root/.tmux.conf"
-    ["./vimrc"]="/root/.vimrc"
-    ["./ntfy"]="/usr/local/bin/ntfy"
-  )
 
   # scp each local file to their remote dst path
   for src in "${!src_to_dst[@]}"; do
@@ -36,12 +47,12 @@ for remote in "$@"; do
     scp -rO "$src" "$remote:$dst"
   done
 
-  src_aliases="source\ /root/.aliases"
+  src_aliases="source\ $home/.aliases"
   config_bin="export\ PATH=\\\"/usr/share/vcinity/configuration/bin:\\\$PATH\\\""
   tmux_esc="export\ TMUX_ESC=1"
   lines=("$src_aliases" "$config_bin" "$tmux_esc")
-  bashrc="/root/.bashrc"
-  symlink="/root/cleanup+installation"
+  bashrc="$home/.bashrc"
+  symlink="$home/cleanup+installation"
   realpath="/var/local/tmp/cleanup+installation"
   port=4444
   proxy="http://localhost:${port}"
@@ -69,18 +80,8 @@ for remote in "$@"; do
 
     # tmux setup
     echo "=== Upgrading tmux"
-    source /etc/os-release
-    version="\$(cut -f 5 -d ':' <<<"\$CPE_NAME")"
-    echo "Installing tmux for RHEL \$version"
-    if ! dnf -y install "http://galaxy4.net/repo/galaxy4-release-\${version}-current.noarch.rpm"; then
-      echo -e "${red}Error${nc}: Failed to set up tmux repo"
-      exit 0
-    fi
-    
-    if ! dnf -y install tmux; then
-      echo -e "${red}Error${nc}: Failed to install tmux"
-      exit 0
-    fi
+
+    tar -xzvf /tmp/tmux.tar.gz -C /usr/bin
 CMD
   )
 
@@ -88,4 +89,12 @@ CMD
   ssh -R $port:localhost:8888 -t "$remote" "$cmds"
   kill -9 $(pgrep tinyproxy)
   echo "[tinyproxy] Shutdown successful"
+
+  ssh -R 12345:localhost:22 "$remote" 'ssh-keyscan -H -p 12345 localhost >>"$HOME/.ssh/known_hosts"'
+
+  remote_pub="$(ssh "$remote" 'cat $HOME/.ssh/*.pub')"
+  if ! grep "$remote_pub" "$HOME/.ssh/authorized_keys"; then
+    echo "$remote_pub" >>"$HOME/.ssh/authorized_keys"
+    echo "Appended remote host's .pub keys to authorized_keys"
+  fi
 done

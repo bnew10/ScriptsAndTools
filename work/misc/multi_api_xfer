@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+while IFS=$'\n' read -r fpath; do
+  ./api_xfer 192.168.29.174 "$fpath" /klt_sync_02_fs1/trg_set1/testset1 10.50.10.11 10.50.20.11 &
+done <<<"$1"

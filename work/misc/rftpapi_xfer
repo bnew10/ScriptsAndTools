@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 0 ]]; then
+  cat <<'EOF'
+Usage: rftpapi_xfer <hostname> [--key value ...]
+
+All --key value pairs are added to the JSON POST body.
+Comma-separated values become JSON arrays; otherwise values are strings.
+
+Example:
+  rftpapi_xfer 10.20.40.65 \
+    --args /path/to/local/file.txt,/remote/destination/file.txt
+    --dest 10.50.20.11 \
+    --rdma_addr 10.60.20.11 \
+    --command rput
+EOF
+  exit 1
+fi
+
+hostname="$1"
+shift
+
+declare -A params=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  --*)
+    key="${1#--}"
+    if [[ -z "${2+x}" || "$2" == --* ]]; then
+      echo "Error: flag --$key requires a value" >&2
+      exit 1
+    fi
+    params["$key"]="$2"
+    shift 2
+    ;;
+  *)
+    echo "Error: unexpected argument: $1" >&2
+    exit 1
+    ;;
+  esac
+done
+
+# Build JSON dynamically from flags
+json="{}"
+for key in "${!params[@]}"; do
+  value="${params[$key]}"
+  if [[ "$value" == *,* ]]; then
+    # Comma-separated → JSON array
+    IFS="," read -ra arr <<<"$value"
+    json_value="$(printf '%s\n' "${arr[@]}" | jq -R . | jq -s .)"
+  else
+    # Single value → JSON string
+    json_value="$(printf '%s' "$value" | jq -Rs .)"
+  fi
+  json="$(printf '%s' "$json" | jq --arg k "$key" --argjson v "$json_value" '. + {($k): $v}')"
+done
+
+echo "request body:"
+jq . <<<"$json"
+
+echo -e "\nresponse:"
+jq . < <(
+  curl -s \
+    -X POST "http://${hostname}:8888/rftp/transfers" \
+    -H "Content-Type: application/json" \
+    -d "$json"
+)

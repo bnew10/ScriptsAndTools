@@ -14,12 +14,12 @@ if [[ -z $selected ]]; then
     exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _)
+selected_name=$(tr . _ < <(basename "$selected"))
 
 if ! tmux has-session -t "$selected_name" 2>/dev/null; then
     tmux new-session -ds "$selected_name" -c "$selected"
     if [[ -e $selected/.tmux-setup ]]; then
-        tmux send-keys -t "$selected_name:1" "./.tmux-setup; clear" "Enter"
+        tmux new-window -dt "$selected_name:+" -c "$selected" "$selected/.tmux-setup"
     fi
 fi
 
