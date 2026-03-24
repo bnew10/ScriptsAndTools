@@ -91,7 +91,8 @@ Each module follows consistent layering:
 
 - Multiple databases: `vcinity-accessx`, `vcinity-accessx-statistic`, compliance databases
 - JPA/Hibernate entities with standard DAO pattern
-- Migration scripts in `distribution/db/` for schema evolution
+- `hibernate.hbm2ddl.auto=validate` in production — Hibernate only validates the schema matches entities, it does NOT auto-create/update columns. Any schema changes require manual SQL migration scripts (gzipped `.sql.gz` files in `distribution/src/db/accessx-compliance/`)
+- Migration scripts in `distribution/src/db/` for schema evolution
 
 #### Testing Framework
 

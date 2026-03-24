@@ -1,0 +1,50 @@
+[[sources]]
+id = "vcinity-accessx"
+type = "postgres"
+host = "localhost"
+port = 5432
+database = "vcinity-accessx"
+user = "baymicro"
+password = "B@yControl!"
+sslmode = "disable"
+connection_timeout = 30
+query_timeout = 30
+# SSH tunnel configuration
+ssh_host = "10.20.40.65"
+ssh_port = 22
+ssh_user = "root"
+ssh_key = "~/.ssh/id_ed25519"
+
+[[sources]]
+id = "vcinity-accessx-statistic"
+type = "postgres"
+host = "localhost"
+port = 5432
+database = "vcinity-accessx-statistic"
+user = "baymicro"
+password = "B@yControl!"
+sslmode = "disable"
+connection_timeout = 30
+query_timeout = 30
+# SSH tunnel configuration
+ssh_host = "10.20.40.65"
+ssh_port = 22
+ssh_user = "root"
+ssh_key = "~/.ssh/id_ed25519"
+
+[[sources]]
+id = "vcinity-commandx"
+type = "postgres"
+host = "localhost"
+port = 5432
+database = "vcinity-commandx"
+user = "baymicro"
+password = "B@yControl!"
+sslmode = "disable"
+connection_timeout = 30
+query_timeout = 30
+# SSH tunnel configuration
+ssh_host = "10.20.40.65"
+ssh_port = 22
+ssh_user = "root"
+ssh_key = "~/.ssh/id_ed25519"
